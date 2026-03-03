@@ -1,0 +1,8 @@
+Return-Path: <ceo@company.com>
+Received: from malicious-server.com (192.168.1.100) by mail.company.com with SMTP;
+Date: Mon, 12 Feb 2024 10:15:30 +0000
+From: CEO <ceo@company.com>
+To: Employee <employee@company.com>
+Subject: URGENT: Immediate Action Required
+Content-Type: text/html; charset="UTF-8"
+X-Mailer: PhishingBot 2.0

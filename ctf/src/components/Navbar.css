@@ -1,0 +1,158 @@
+/* Global Reset
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  padding: 20px;
+  position:fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 18px;
+}
+
+.nav-links li {
+  list-style: none;
+}
+
+.nav-links li a {
+  display: inline-block;
+  padding: 12px 25px;
+  border-radius: 20px;
+  color: rgb(239, 136, 18);
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s ease-in-out;
+  box-shadow: 0 3px 6px rgba(246, 143, 75, 0.5);
+}
+
+.nav-links li a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 10px rgba(235, 107, 9, 0.7);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav-links li a {
+    width: 100%;
+    text-align: center;
+  }
+} */
+
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Courier New", monospace;
+}
+
+/* Navbar Container */
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  background: rgba(255, 255, 255, 0); /* Semi-transparent */
+  backdrop-filter: blur(10px); /* Glass effect */
+  padding: 14px 18px;
+  border-radius: 50px; /* Pill shape */
+  box-shadow: 0 6px 10px rgb(0, 0, 0);
+  z-index: 100;
+}
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+
+.nav-links li {
+  list-style: none;
+}
+
+/* Link Styling */
+.nav-links li a {
+  text-decoration: none;
+  color:limegreen;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 16px 18px;
+  border-radius: 30px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hover Effect */
+.nav-links li a:hover {
+  background: rgba(81, 223, 233, 0);
+  color: white;
+  box-shadow: 0 3px 6px limegreen;
+  transform: translateY(-3px);
+}
+
+/* 📱 Responsive Navbar */
+@media (max-width: 768px) {
+  .navbar {
+    width: 90%;
+    padding: 10px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .nav-links li a {
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    width: 95%;
+    padding: 8px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav-links li a {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+}

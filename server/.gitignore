@@ -1,0 +1,59 @@
+# Dependencies
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# MongoDB local files
+data/
+*.db
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Build / dist
+dist/
+build/
+
+# Coverage
+coverage/
+
+# Temporary files
+tmp/
+temp/
+
+# PM2
+.pids
+*.pid
+*.seed
+*.pid.lock
+
+# Runtime data
+*.tgz
+
+# Optional npm cache directory
+.npm
+
+# Parcel cache
+.cache
+
+# Mac system files
+.AppleDouble
+.LSOverride
+
+# Windows system files
+ehthumbs.db
+Desktop.ini

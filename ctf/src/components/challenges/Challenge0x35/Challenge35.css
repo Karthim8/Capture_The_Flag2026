@@ -1,0 +1,160 @@
+/* 🔥 Challenge35.css — HARD CTF STYLE */
+
+.challenge-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Background video */
+.background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+
+/* Dark overlay for readability */
+.challenge-wrapper::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.65);
+    z-index: -1;
+}
+
+/* Main content box */
+.challenge-content {
+    z-index: 2;
+    color: #00ffcc;
+    font-family: "Courier New", monospace;
+    padding: 40px;
+    width: 500px;
+    border: 2px solid #00ffcc;
+    border-radius: 12px;
+    background: rgba(0,0,0,0.75);
+    box-shadow: 0 0 25px #00ffcc;
+}
+
+/* Header */
+.challenge-header {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    color: #00ffcc;
+    text-shadow: 0 0 10px #00ffcc;
+}
+
+/* Instruction */
+.challenge-instruction {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+/* Form */
+.ip-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Input */
+.ip-form input {
+    padding: 12px;
+    width: 80%;
+    font-size: 1rem;
+    border: 1px solid #00ffcc;
+    background: black;
+    color: #00ffcc;
+    text-align: center;
+    margin: 15px;
+    border-radius: 6px;
+    outline: none;
+    transition: 0.3s;
+}
+
+/* Input glow on focus */
+.ip-form input:focus {
+    box-shadow: 0 0 15px #00ffcc;
+    border-color: #00ffff;
+}
+
+/* Submit button */
+.submit-btn {
+    background: linear-gradient(45deg,#ff0000,#ff4d4d);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background: linear-gradient(45deg,#ff4d4d,#ff0000);
+    box-shadow: 0 0 15px red;
+}
+
+/* Back button */
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 25px;
+    background: transparent;
+    color: white;
+    border: 1px solid white;
+    padding: 10px 18px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.back-button:hover {
+    background: rgba(255,255,255,0.2);
+    color: #00ffff;
+    box-shadow: 0 0 10px #00ffff;
+}
+
+/* Flag output */
+.cracked-flag {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #00ff00;
+    font-weight: bold;
+    text-shadow: 0 0 12px #00ff00;
+    animation: blink 1s infinite alternate;
+}
+
+/* Blink animation */
+@keyframes blink {
+    from { opacity: 1; }
+    to { opacity: 0.4; }
+}
+
+/* Footer */
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.85);
+    color: #ccc;
+    text-align: center;
+    padding: 8px;
+    font-size: 14px;
+}
