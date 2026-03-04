@@ -44,9 +44,9 @@ const challenges = [
   { id: "0x34", points: "100 ", description: "HIDDEN WEB", difficulty: "CHALLENGER" },
   { id: "0x35", points: "100 ", description: "FIND IT ?", difficulty: "CHALLENGER" },
   { id: "0x36", points: "100 ", description: "ARCANE CALCULATOR", difficulty: "CHALLENGER" },
-  // { id: "0x37", points: "50 ", description: "Just Connect to SSH - GET a Flag", difficulty: "EASY" },
-  // { id: "0x38", points: "50 ", description: "Strings STR", difficulty: "EASY" },
-  // { id: "0x39", points: "100 ", description: "Debugger --", difficulty: "HARD" },
+  { id: "0x37", points: "50 ", description: "Just Connect to SSH - GET a Flag", difficulty: "EASY" },
+  { id: "0x38", points: "50 ", description: "Strings STR", difficulty: "EASY" },
+  { id: "0x39", points: "100 ", description: "Debugger --", difficulty: "HARD" },
 ];
 
 
