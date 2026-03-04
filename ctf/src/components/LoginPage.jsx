@@ -2,12 +2,20 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./LoginPage.css";
+import PopupModal from "./PopupModal";
 
 const LoginPage = () => {
   const [teamId, setTeamId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [popup, setPopup] = useState({ show: false, message: "" });
   const navigate = useNavigate();
+
+  const showPopup = (message) => setPopup({ show: true, message });
+  const closePopup = () => {
+    setPopup({ show: false, message: "" });
+    navigate("/dashboard");
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -20,13 +28,9 @@ const LoginPage = () => {
       });
 
       if (response.data.success) {
-        alert("✅ Login Successful!");
-
         // Store logged-in team ID in localStorage
         localStorage.setItem("loggedInTeam", teamId);
-
-        // Redirect to dashboard
-        navigate("/dashboard");
+        showPopup("✅ Login Successful!");
       }
     } catch (err) {
       setError("❌ Invalid Team ID or Password");
@@ -35,11 +39,11 @@ const LoginPage = () => {
 
   return (
     <div className="login-page">
+      {popup.show && <PopupModal message={popup.message} onClose={closePopup} />}
       <div className="login-container">
         <div className="left-section">
-          <h1>Byte Buster's Club</h1> 
+          <h1>Byte Buster's Club</h1>
           <h2>Learn CyberSecurity</h2>
-          {/* <br /> <br /> <br /> <br /> <br /> <br /> <br /><br />  */}
         </div>
         <div className="right-section">
           <h2>Start Hacking !!!</h2>

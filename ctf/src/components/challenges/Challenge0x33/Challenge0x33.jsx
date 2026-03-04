@@ -2,11 +2,16 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import "./Challenge33.css";
 import bgVideo from "../video/video bg ctf.mp4";
+import PopupModal from "../../PopupModal";
 
 const Challenge0x33 = () => {
   const [cookieName, setCookieName] = useState("");
-  const [storedCookie, setStoredCookie] = useState(Cookies.get("flag") || ""); 
+  const [storedCookie, setStoredCookie] = useState(Cookies.get("flag") || "");
   const [loadedCookie, setLoadedCookie] = useState("");
+  const [popup, setPopup] = useState({ show: false, message: "" });
+
+  const showPopup = (message) => setPopup({ show: true, message });
+  const closePopup = () => setPopup({ show: false, message: "" });
 
   useEffect(() => {
     // Load value from .env and set state
@@ -19,14 +24,15 @@ const Challenge0x33 = () => {
       const flag = process.env.REACT_APP_0X33FLAG;
       Cookies.set("flag", flag, { expires: 1, secure: true });
       setStoredCookie(flag);
-      alert("Flag stored in cookies! Check DevTools.");
+      showPopup("Flag stored in cookies! Check DevTools.");
     } else {
-      alert("Error: Incorrect cookie name!");
+      showPopup("Error: Incorrect cookie name!");
     }
   };
 
   return (
     <div className="challenge-wrapper">
+      {popup.show && <PopupModal message={popup.message} onClose={closePopup} />}
       <video autoPlay loop muted className="background-video">
         <source src={bgVideo} type="video/mp4" />
       </video>

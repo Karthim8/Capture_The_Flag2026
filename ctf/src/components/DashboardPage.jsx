@@ -3,18 +3,25 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./DashboardPage.css";
 import hackerVideo from "./video/video bg ctf.mp4"; // Your background video
+import PopupModal from "./PopupModal";
 
 const DashboardPage = () => {
   const [team, setTeam] = useState(null);
   const [time, setTime] = useState(new Date().toLocaleTimeString());
+  const [popup, setPopup] = useState({ show: false, message: "" });
   const navigate = useNavigate();
+
+  const showPopup = (message) => setPopup({ show: true, message });
+  const closePopup = () => {
+    setPopup({ show: false, message: "" });
+    navigate("/");
+  };
 
   useEffect(() => {
     const loggedInTeam = localStorage.getItem("loggedInTeam");
 
     if (!loggedInTeam) {
-      alert("❌ No team logged in. Redirecting to login.");
-      navigate("/");
+      showPopup("❌ No team logged in. Redirecting to login.");
       return;
     }
 
@@ -36,6 +43,7 @@ const DashboardPage = () => {
 
   return (
     <div className="dashboard-container">
+      {popup.show && <PopupModal message={popup.message} onClose={closePopup} />}
       <video autoPlay loop muted className="background-video">
         <source src={hackerVideo} type="video/mp4" />
       </video>

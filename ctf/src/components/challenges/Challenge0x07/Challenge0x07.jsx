@@ -2,14 +2,19 @@ import React, { useState, useEffect } from "react";
 import "./Challenge7.css";
 import bgVideo from "../video/video bg ctf.mp4"; // Ensure this file is in the correct location
 import useTrash from "../trash";
+import PopupModal from "../../PopupModal";
 
 const Challenge0x07 = () => {
   // Player state
   const [player, setPlayer] = useState({ x: 50, y: 50 });
   const [flag, setFlag] = useState("");
   const [fixedFlag, setFixedFlag] = useState("");
+  const [popup, setPopup] = useState({ show: false, message: "" });
   const playerSize = 20;
   const speed = 5;
+
+  const showPopup = (message) => setPopup({ show: true, message });
+  const closePopup = () => setPopup({ show: false, message: "" });
 
   // Get flag data from useTrash
   const { d: flagData } = useTrash("3");
@@ -41,7 +46,7 @@ const Challenge0x07 = () => {
           newY < hiddenZone.y + hiddenZone.height
         ) {
           setFlag(`🎉 Congratulations! You found the flag: ${fixedFlag}`);
-          alert(flagData);
+          showPopup(flagData);
         }
 
         return { x: newX, y: newY };
@@ -54,6 +59,7 @@ const Challenge0x07 = () => {
 
   return (
     <div className="challenge-wrapper">
+      {popup.show && <PopupModal message={popup.message} onClose={closePopup} />}
       {/* Background Video */}
       <video autoPlay loop muted className="background-video">
         <source src={bgVideo} type="video/mp4" />
