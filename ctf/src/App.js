@@ -86,7 +86,7 @@ function App() {
             }
           />
 
-          <Route path="/login" element={<LoginPage />} />.
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/categories" element={<PrivateRoute><TechCategories /></PrivateRoute>} />
           <Route path="/about" element={<About />} />
