@@ -1,66 +1,348 @@
-/* Wrapper for the challenge */
-.challenge-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+/* ============================================
+   Challenge0x02.css — Log Hunt CTF Challenge
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700;900&display=swap');
+
+/* ── Reset & Root ── */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Background Video - Keeping as it is */
+:root {
+    --green: #00ff41;
+    --green-dim: #00aa2b;
+    --green-glow: rgba(0, 255, 65, 0.35);
+    --green-faint: rgba(0, 255, 65, 0.06);
+    --red: #ff4444;
+    --yellow: #ffd700;
+    --bg: #000;
+    --terminal-bg: rgba(0, 8, 0, 0.82);
+    --border: rgba(0, 255, 65, 0.3);
+}
+
+/* ── Layout ── */
+.challenge-wrapper {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+/* ── Background Video ── */
 .background-video {
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: -1;
+    opacity: 0.12;
+    z-index: 0;
 }
 
-/* Content Box */
+/* ── Matrix Canvas ── */
+.matrix-canvas {
+    position: absolute;
+    inset: 0;
+    opacity: 0.18;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ── Scanlines ── */
+.scanlines {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: repeating-linear-gradient(to bottom,
+            transparent 0px,
+            transparent 3px,
+            rgba(0, 0, 0, 0.18) 3px,
+            rgba(0, 0, 0, 0.18) 4px);
+}
+
+/* ── Content Layer ── */
 .challenge-content {
     position: relative;
-    z-index: 1;
-    background: rgba(0, 0, 0, 0.8); /* Dark transparent background */
-    padding: 20px;
-    border-radius: 10px;
-    border: 2px solid #00ff00; /* Green neon border */
-    /*box-shadow: 0px 0px 15px #00ff00; Neon glow effect */
-    width: 50%;
+    z-index: 10;
+    width: min(700px, 92vw);
+    animation: fadeIn 0.8s ease both;
 }
 
-/* Challenge Header */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Terminal Window ── */
+.terminal-window {
+    background: var(--terminal-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow:
+        0 0 0 1px rgba(0, 255, 65, 0.08),
+        0 0 40px rgba(0, 255, 65, 0.12),
+        0 0 80px rgba(0, 255, 65, 0.06),
+        inset 0 0 60px rgba(0, 255, 65, 0.03);
+    backdrop-filter: blur(6px);
+    overflow: hidden;
+}
+
+/* ── Terminal Title Bar ── */
+.terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    background: rgba(0, 255, 65, 0.06);
+    border-bottom: 1px solid var(--border);
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.dot.red {
+    background: var(--red);
+    box-shadow: 0 0 6px var(--red);
+}
+
+.dot.yellow {
+    background: var(--yellow);
+    box-shadow: 0 0 6px var(--yellow);
+}
+
+.dot.green {
+    background: var(--green);
+    box-shadow: 0 0 6px var(--green);
+}
+
+.terminal-title {
+    margin-left: 10px;
+    font-size: 12px;
+    color: var(--green-dim);
+    letter-spacing: 0.05em;
+}
+
+/* ── Terminal Body ── */
+.terminal-body {
+    padding: 28px 32px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* ── Prompt Lines ── */
+.terminal-line {
+    font-size: 13px;
+    color: var(--green-dim);
+    letter-spacing: 0.04em;
+}
+
+.prompt {
+    color: var(--green);
+    margin-right: 8px;
+    text-shadow: 0 0 6px var(--green);
+}
+
+/* ── Header ── */
 .challenge-header {
-    font-size: 2rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: #00ff00; /* Neon green */
-    font-family: "Courier New", monospace;
-    text-shadow: 0px 0px 10px #00ff00;
-    margin-bottom: 15px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(22px, 4vw, 34px);
+    font-weight: 900;
+    line-height: 1.1;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    flex-wrap: wrap;
 }
 
-/* Challenge Instruction */
-.challenge-instruction {
-    font-size: 1.2rem;
-    color: #00ff00;
-    font-family: "Courier New", monospace;
-    text-shadow: 0px 0px 5px #00ff00;
+.hex {
+    color: var(--green);
+    text-shadow: 0 0 12px var(--green), 0 0 28px var(--green-glow);
 }
 
-/* QR Code */
-.qr-code-container {
-    margin-top: 30px;
+.arrow {
+    color: var(--green-dim);
 }
 
-.qr-code {
-    width: 300px;
-    height: 300px;
-    border: 2px solid #00ff00;
-    /*box-shadow: 0px 0px 10px #00ff00;*/
-    border-radius: 5px;
+.title {
+    color: #e0ffe0;
+    letter-spacing: 0.08em;
+}
+
+/* ── Description ── */
+.challenge-description {
+    border-left: 2px solid var(--green-dim);
+    padding-left: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.desc-line {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--green-dim);
+}
+
+.bracket {
+    color: var(--green);
+}
+
+.label {
+    color: var(--yellow);
+    margin: 0 4px;
+}
+
+.desc-text {
+    font-size: 14px;
+    color: #c8ffc8;
+    line-height: 1.75;
+}
+
+.flag-icon {
+    font-style: normal;
+}
+
+/* ── Hint Box ── */
+.hint-box {
+    background: var(--green-faint);
+    border: 1px solid rgba(0, 255, 65, 0.15);
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-size: 12.5px;
+}
+
+.hint-label {
+    color: var(--green-dim);
+    margin-right: 6px;
+}
+
+.hint-text {
+    color: #a0d8a0;
+    font-style: italic;
+}
+
+/* ── Blink cursor line ── */
+.blink-line .cursor {
+    animation: blink 1s step-end infinite;
+    color: var(--green);
+    margin-left: 4px;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* ── Download Button ── */
+.download-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: transparent;
+    border: 1px solid var(--green);
+    border-radius: 4px;
+    padding: 13px 22px;
+    cursor: pointer;
+    width: 100%;
+    color: var(--green);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+    position: relative;
+    overflow: hidden;
+}
+
+.download-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.08), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.4s;
+}
+
+.download-btn:hover::before {
+    transform: translateX(100%);
+}
+
+.download-btn:hover {
+    background: rgba(0, 255, 65, 0.08);
+    box-shadow: 0 0 20px var(--green-glow), inset 0 0 12px rgba(0, 255, 65, 0.05);
+    transform: translateY(-1px);
+}
+
+.download-btn:active {
+    transform: translateY(0);
+}
+
+.btn-icon {
+    font-size: 16px;
+}
+
+.btn-text {
+    flex: 1;
+    text-align: left;
+    text-shadow: 0 0 8px var(--green-glow);
+}
+
+.btn-size {
+    font-size: 11px;
+    color: var(--green-dim);
+    letter-spacing: 0.1em;
+}
+
+/* ── Footer ── */
+.terminal-footer {
+    font-size: 12px;
+    padding-top: 4px;
+    border-top: 1px solid rgba(0, 255, 65, 0.08);
+}
+
+.footer-text {
+    color: #7aaa7a;
+}
+
+.flag-format {
+    color: var(--yellow);
+    text-shadow: 0 0 6px rgba(255, 215, 0, 0.4);
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+    .terminal-body {
+        padding: 20px 18px 24px;
+    }
+
+    .download-btn {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
 }
