@@ -1,6 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -63,16 +62,12 @@ import Flag from "./components/challenges/Challenge0x34/flag.jsx";
 import Flagcopy from "./components/challenges/Challenge0x34/flagcopy.jsx";
 
 
-import axios, { formToJSON } from "axios";
-function App() {
-  const [items, setItems] = useState([]);
+// Redirect to /login if not logged in
+const PrivateRoute = ({ children }) => {
+  return localStorage.getItem("loggedInTeam") ? children : <Navigate to="/login" replace />;
+};
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/register") // ✅ Fetch data from your MongoDB backend
-      .then((response) => setItems(response.data))
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+function App() {
 
   return (
     <Router>
@@ -93,53 +88,53 @@ function App() {
 
           <Route path="/login" element={<LoginPage />} />.
           <Route path="/register" element={<Register />} />
-          <Route path="/categories" element={<TechCategories />} />
+          <Route path="/categories" element={<PrivateRoute><TechCategories /></PrivateRoute>} />
           <Route path="/about" element={<About />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/dashboard" element={<PrivateRoute><DashboardPage /></PrivateRoute>} />
           <Route path="/scoreboard" element={<Scoreboard />} />
-          <Route path="/flags" element={<FlagForm />} />
+          <Route path="/flags" element={<PrivateRoute><FlagForm /></PrivateRoute>} />
 
-<Route path="/challenges/0x01" element={<Challenge0x01 />} />
-<Route path="/challenges/0x02" element={<Challenge0x02 />} />
-<Route path="/challenges/0x03" element={<Challenge0x03 />} />
-<Route path="/challenges/0x04" element={<Challenge0x04 />} />
-<Route path="/challenges/0x05" element={<Challenge0x05 />} />
-<Route path="/challenges/0x06" element={<Challenge0x06 />} />
-<Route path="/challenges/0x07" element={<Challenge0x07 />} />
-<Route path="/challenges/0x08" element={<Challenge0x08 />} />
-<Route path="/challenges/0x09" element={<Challenge0x09 />} />
-<Route path="/challenges/0x10" element={<Challenge0x10 />} />
-<Route path="/challenges/0x11" element={<Challenge0x11 />} />
-<Route path="/challenges/0x12" element={<Challenge0x12 />} />
-<Route path="/challenges/0x13" element={<Challenge0x13 />} />
-<Route path="/challenges/0x14" element={<Challenge0x14 />} />
-<Route path="/challenges/0x15" element={<Challenge0x15 />} />
-<Route path="/challenges/0x16" element={<Challenge0x16 />} />
-<Route path="/challenges/0x17" element={<Challenge0x17 />} />
-<Route path="/challenges/0x18" element={<Challenge0x18 />} />
-<Route path="/challenges/0x19" element={<Challenge0x19 />} />
-<Route path="/challenges/0x20" element={<Challenge0x20 />} />
-<Route path="/challenges/0x21" element={<Challenge0x21 />} />
-<Route path="/challenges/0x22" element={<Challenge0x22 />} />
-<Route path="/challenges/0x23" element={<Challenge0x23 />} />
-<Route path="/challenges/0x24" element={<Challenge0x24 />} />
-<Route path="/challenges/0x25" element={<Challenge0x25 />} />
-<Route path="/challenges/0x26" element={<Challenge0x26 />} />
-<Route path="/challenges/0x27" element={<Challenge0x27 />} />
-<Route path="/challenges/0x28" element={<Challenge0x28 />} />
-<Route path="/challenges/0x29" element={<Challenge0x29 />} />
-<Route path="/challenges/0x30" element={<Challenge0x30 />} />
-<Route path="/challenges/0x31" element={<Challenge0x31 />} />
-<Route path="/challenges/0x32" element={<Challenge0x32 />} />
-<Route path="/challenges/0x33" element={<Challenge0x33 />} />
-<Route path="/challenges/0x34" element={<Challenge0x34 />} />
-<Route path="/challenges/0x35" element={<Challenge0x35 />} />
-<Route path="/challenges/0x36" element={<Challenge0x36 />} />
-<Route path="/challenges/0x37" element={<Challenge0x37 />} />
-<Route path="/challenges/0x38" element={<Challenge0x38 />} />
-<Route path="/challenges/0x39" element={<Challenge0x39 />} />
-<Route path="/challenges/yrtne-neddih/" element={<Flag />} />
-<Route path="/challenges/hidden-entry/" element={<Flagcopy />} />
+          <Route path="/challenges/0x01" element={<PrivateRoute><Challenge0x01 /></PrivateRoute>} />
+          <Route path="/challenges/0x02" element={<PrivateRoute><Challenge0x02 /></PrivateRoute>} />
+          <Route path="/challenges/0x03" element={<PrivateRoute><Challenge0x03 /></PrivateRoute>} />
+          <Route path="/challenges/0x04" element={<PrivateRoute><Challenge0x04 /></PrivateRoute>} />
+          <Route path="/challenges/0x05" element={<PrivateRoute><Challenge0x05 /></PrivateRoute>} />
+          <Route path="/challenges/0x06" element={<PrivateRoute><Challenge0x06 /></PrivateRoute>} />
+          <Route path="/challenges/0x07" element={<PrivateRoute><Challenge0x07 /></PrivateRoute>} />
+          <Route path="/challenges/0x08" element={<PrivateRoute><Challenge0x08 /></PrivateRoute>} />
+          <Route path="/challenges/0x09" element={<PrivateRoute><Challenge0x09 /></PrivateRoute>} />
+          <Route path="/challenges/0x10" element={<PrivateRoute><Challenge0x10 /></PrivateRoute>} />
+          <Route path="/challenges/0x11" element={<PrivateRoute><Challenge0x11 /></PrivateRoute>} />
+          <Route path="/challenges/0x12" element={<PrivateRoute><Challenge0x12 /></PrivateRoute>} />
+          <Route path="/challenges/0x13" element={<PrivateRoute><Challenge0x13 /></PrivateRoute>} />
+          <Route path="/challenges/0x14" element={<PrivateRoute><Challenge0x14 /></PrivateRoute>} />
+          <Route path="/challenges/0x15" element={<PrivateRoute><Challenge0x15 /></PrivateRoute>} />
+          <Route path="/challenges/0x16" element={<PrivateRoute><Challenge0x16 /></PrivateRoute>} />
+          <Route path="/challenges/0x17" element={<PrivateRoute><Challenge0x17 /></PrivateRoute>} />
+          <Route path="/challenges/0x18" element={<PrivateRoute><Challenge0x18 /></PrivateRoute>} />
+          <Route path="/challenges/0x19" element={<PrivateRoute><Challenge0x19 /></PrivateRoute>} />
+          <Route path="/challenges/0x20" element={<PrivateRoute><Challenge0x20 /></PrivateRoute>} />
+          <Route path="/challenges/0x21" element={<PrivateRoute><Challenge0x21 /></PrivateRoute>} />
+          <Route path="/challenges/0x22" element={<PrivateRoute><Challenge0x22 /></PrivateRoute>} />
+          <Route path="/challenges/0x23" element={<PrivateRoute><Challenge0x23 /></PrivateRoute>} />
+          <Route path="/challenges/0x24" element={<PrivateRoute><Challenge0x24 /></PrivateRoute>} />
+          <Route path="/challenges/0x25" element={<PrivateRoute><Challenge0x25 /></PrivateRoute>} />
+          <Route path="/challenges/0x26" element={<PrivateRoute><Challenge0x26 /></PrivateRoute>} />
+          <Route path="/challenges/0x27" element={<PrivateRoute><Challenge0x27 /></PrivateRoute>} />
+          <Route path="/challenges/0x28" element={<PrivateRoute><Challenge0x28 /></PrivateRoute>} />
+          <Route path="/challenges/0x29" element={<PrivateRoute><Challenge0x29 /></PrivateRoute>} />
+          <Route path="/challenges/0x30" element={<PrivateRoute><Challenge0x30 /></PrivateRoute>} />
+          <Route path="/challenges/0x31" element={<PrivateRoute><Challenge0x31 /></PrivateRoute>} />
+          <Route path="/challenges/0x32" element={<PrivateRoute><Challenge0x32 /></PrivateRoute>} />
+          <Route path="/challenges/0x33" element={<PrivateRoute><Challenge0x33 /></PrivateRoute>} />
+          <Route path="/challenges/0x34" element={<PrivateRoute><Challenge0x34 /></PrivateRoute>} />
+          <Route path="/challenges/0x35" element={<PrivateRoute><Challenge0x35 /></PrivateRoute>} />
+          <Route path="/challenges/0x36" element={<PrivateRoute><Challenge0x36 /></PrivateRoute>} />
+          <Route path="/challenges/0x37" element={<PrivateRoute><Challenge0x37 /></PrivateRoute>} />
+          <Route path="/challenges/0x38" element={<PrivateRoute><Challenge0x38 /></PrivateRoute>} />
+          <Route path="/challenges/0x39" element={<PrivateRoute><Challenge0x39 /></PrivateRoute>} />
+          <Route path="/challenges/yrtne-neddih/" element={<PrivateRoute><Flag /></PrivateRoute>} />
+          <Route path="/challenges/hidden-entry/" element={<PrivateRoute><Flagcopy /></PrivateRoute>} />
 
         </Routes>
       </div>

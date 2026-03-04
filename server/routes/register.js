@@ -3,17 +3,32 @@ const Register = require("../models/Register"); // Register model
 const User = require("../models/User"); // User model
 const router = express.Router();
 
+// Generate a unique 4-digit team ID
+async function generateUniqueTeamId() {
+    let team_id;
+    let exists = true;
+    while (exists) {
+        team_id = Math.floor(1000 + Math.random() * 9000); // 1000–9999
+        exists = await Register.findOne({ team_id });
+    }
+    return team_id;
+}
+
 // Register a new team
 router.post("/", async (req, res) => {
     try {
-        console.log("Received Request Body:", req.body); // Debugging
+        console.log("Received Request Body:", req.body);
 
-        const { team_name, team_id, member1, member2, member3, department, year, phone, college } = req.body;
+        const { team_name, member1, member2, member3, department, year, phone, college } = req.body;
 
         // Check if required fields are provided
-        if (!team_name || !team_id || !member1 || !department || !year || !phone || !college) {
+        if (!team_name || !member1 || !department || (year === undefined || year === "") || !phone || !college) {
+            console.log("Validation failed:", { team_name, member1, department, year, phone, college });
             return res.status(400).json({ error: "All required fields must be provided" });
         }
+
+        // Auto-generate unique 4-digit team ID
+        const team_id = await generateUniqueTeamId();
 
         // Save team registration data
         const newRegistration = new Register({
@@ -38,28 +53,25 @@ router.post("/", async (req, res) => {
 
         await newUser.save();
 
-        res.status(201).json({ message: "Registration successful!" });
+        res.status(201).json({ message: "Registration successful!", team_id });
 
     } catch (err) {
         console.error("❌ Registration Error:", err);
         res.status(400).json({ error: err.message });
     }
-}
+});
 
-
-
-);
 // Get team details by team_id
 router.get("/team/:team_id", async (req, res) => {
-  try {
-      const team = await Register.findOne({ team_id: req.params.team_id });
-      if (!team) {
-          return res.status(404).json({ error: "Team not found" });
-      }
-      res.json(team);
-  } catch (err) {
-      res.status(500).json({ error: "Failed to fetch team data" });
-  }
+    try {
+        const team = await Register.findOne({ team_id: req.params.team_id });
+        if (!team) {
+            return res.status(404).json({ error: "Team not found" });
+        }
+        res.json(team);
+    } catch (err) {
+        res.status(500).json({ error: "Failed to fetch team data" });
+    }
 });
 // Update team rank by _id
 // Update team rank by team_id
@@ -70,8 +82,8 @@ router.put("/update/:team_id", async (req, res) => {
         // Find the team by team_id and update the provided fields
         const updatedTeam = await Register.findOneAndUpdate(
             { team_id: req.params.team_id }, // Search condition
-            { 
-                $set: { team_name, member1, member2, member3, department, year, phone, college, scores, rank } 
+            {
+                $set: { team_name, member1, member2, member3, department, year, phone, college, scores, rank }
             },
             { new: true, runValidators: true } // Return updated document & validate data
         );

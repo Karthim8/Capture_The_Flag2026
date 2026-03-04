@@ -1,30 +1,38 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Register.css";
+import PopupModal from "./PopupModal";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     team_name: "",
-    team_id: "",
     phone: "",
     year: "",
     department: "",
-    college: "", // Added college field
+    college: "",
     member1: "",
     member2: "",
     member3: "",
   });
+  const [popup, setPopup] = useState({ show: false, message: "", onClose: null });
+
+  const showPopup = (message, onClose) => {
+    setPopup({ show: true, message, onClose: onClose || (() => setPopup({ show: false, message: "", onClose: null })) });
+  };
+
+  const closePopup = () => setPopup({ show: false, message: "", onClose: null });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: name === "team_id" || name === "year" ? Number(value) || "" : value, // Convert team_id & year to number
+      [name]: name === "year" ? Number(value) || "" : value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting Data:", formData); // Debugging: Ensure correct format
 
     try {
       const response = await fetch("api/register", {
@@ -35,29 +43,25 @@ const Register = () => {
 
       const data = await response.json();
       if (response.ok) {
-        alert("✅ Registration Successful!");
-        setFormData({
-          team_name: "",
-          team_id: "",
-          phone: "",
-          year: "",
-          department: "",
-          college: "", // Reset college field
-          member1: "",
-          member2: "",
-          member3: "",
-        });
+        showPopup(
+          `✅ Registration Successful!\n\nYour Team ID is: ${data.team_id}\n\n⚠️ Save this ID — you need it to log in!`,
+          () => {
+            closePopup();
+            navigate("/categories");
+          }
+        );
       } else {
-        alert(`❌ Error: ${data.error}`);
+        showPopup(`❌ Error: ${data.error}`);
       }
     } catch (error) {
       console.error("❌ Registration Failed:", error);
-      alert("❌ Server error. Please try again later.");
+      showPopup("❌ Server error. Please try again later.");
     }
   };
 
   return (
     <div className="register-container">
+      {popup.show && <PopupModal message={popup.message} onClose={popup.onClose} />}
       <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
       <h1>Register your team for the CTF</h1>
       <br />
@@ -71,7 +75,6 @@ const Register = () => {
           <input type="text" name="team_name" placeholder="Team Name" value={formData.team_name} onChange={handleChange} required />
         </div>
         <div className="form-row">
-          <input type="number" name="team_id" placeholder="Team ID" value={formData.team_id} onChange={handleChange} required />
           <select name="department" value={formData.department} onChange={handleChange} required>
             <option value="">Department</option>
             <option value="CSE">CSE</option>
@@ -85,8 +88,6 @@ const Register = () => {
             <option value="BME">BME</option>
             <option value="FT">FT</option>
           </select>
-        </div>
-        <div className="form-row">
           <select name="year" value={formData.year} onChange={handleChange} required>
             <option value="">Year</option>
             <option value="1">1st</option>
@@ -94,10 +95,10 @@ const Register = () => {
             <option value="3">3rd</option>
             <option value="4">4th</option>
           </select>
-          <input type="tel" name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleChange} required />
         </div>
         <div className="form-row">
-          <input type="text" name="college" placeholder="College Name" value={formData.college} onChange={handleChange} required /> {/* Added input for college */}
+          <input type="tel" name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleChange} required />
+          <input type="text" name="college" placeholder="College Name" value={formData.college} onChange={handleChange} required />
         </div>
         <p>Never accept a Defeat unless Trying it.</p>
         <br />
