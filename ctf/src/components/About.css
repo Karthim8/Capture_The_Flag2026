@@ -1,0 +1,164 @@
+/* Wrapper for Fullscreen Video */
+.about-wrapper {
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* height: 100%; */
+    overflow: auto;
+}
+
+/* Background Video - FIXED */
+.background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+    filter: brightness(100%) contrast(100%); /* Adjust for visibility */
+}
+
+/* About Content - Ensuring Readability */
+.about-container { 
+    position: relative;
+    margin: 20px;
+    max-width: 10000px;
+    padding: 50px;
+    background: rgba(0, 0, 0, 0); /* Adds transparency for better readability */
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Title Styling */
+.about-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center; /* Ensures text alignment */
+    color: #00ff15;
+    text-shadow: 0px 0px 10px #38f50400, 0px 0px 20px #00ff0400;
+    display: flex;
+    justify-content: center; /* Horizontally center */
+    align-items: center; /* Vertically center */
+    width: 100%;
+    padding: 10px; /* Centers block elements */
+}
+
+/* Subtitle */
+.about-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #00ff15;
+}
+
+/* Section Headings */
+h2 {
+    font-size: 1.8rem;
+    color: #00ff049f;
+    text-shadow: 0px 0px 10px #00ff1a00;
+    margin-top: 20px;
+}
+
+/* Paragraph Text */
+p {
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+/* Lists Styling */
+ul, ol {
+    padding-left: 20px;
+}
+
+/* List Items */
+ul li, ol li {
+    font-size: 1.1rem;
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+strong{
+    font-size: 1.1rem;
+    color: #ffffff;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    font-size: 1rem;
+    color: #888;
+    margin-top: 40px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .about-container {
+        margin-left: 0;
+        max-width: 100%;
+        padding: 20px;
+    }
+    
+    .about-title {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    p, ul li, ol li {
+        font-size: 1rem;
+    }
+}
+
+.about-images-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 80px; /* Space between images */
+    margin-top: 40px;
+}
+
+.about-person {
+    text-align: center;
+    width: 200px; /* Keep it aligned properly */
+}
+
+.about-image {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid #00ff15;
+    box-shadow: 0 0 15px #00ff1500;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.about-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.about-image:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 25px #00ff1500, 0 0 40px #00ff1500;
+}
+
+/* Name Styling */
+.person-name {
+    margin-top: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Description Styling */
+.person-role {
+    font-size: 0.9rem;
+    color: #22ff00;
+    font-family: 'Courier New', Courier, monospace;
+}
