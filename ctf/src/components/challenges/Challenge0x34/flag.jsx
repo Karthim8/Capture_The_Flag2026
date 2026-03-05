@@ -12,7 +12,7 @@ const Flag = () => {
       <div className="challenge-content">
         <h1 className="challenge-header">Access Granted</h1>
         <p className="challenge-instruction">
-          {"THREADS26{YouAreADigitalMiner}"}
+          {"CRACKED{YouAreADigitalMiner}"}
         </p>
       </div>
     </div>

@@ -1,56 +1,48 @@
-import React, { useState, useEffect } from "react";
-import Cookies from "js-cookie";
+import React from "react";
 import "./Challenge33.css";
 import bgVideo from "../video/video bg ctf.mp4";
-import PopupModal from "../../PopupModal";
 
 const Challenge0x33 = () => {
-  const [cookieName, setCookieName] = useState("");
-  const [storedCookie, setStoredCookie] = useState(Cookies.get("flag") || "");
-  const [loadedCookie, setLoadedCookie] = useState("");
-  const [popup, setPopup] = useState({ show: false, message: "" });
 
-  const showPopup = (message) => setPopup({ show: true, message });
-  const closePopup = () => setPopup({ show: false, message: "" });
-
-  useEffect(() => {
-    // Load value from .env and set state
-    const envCookie = process.env.REACT_APP_0X33;
-    setLoadedCookie(envCookie);
-  }, []);
-
-  const handleSearch = () => {
-    if (cookieName.trim().toLowerCase() === loadedCookie) {
-      const flag = process.env.REACT_APP_0X33FLAG;
-      Cookies.set("flag", flag, { expires: 1, secure: true });
-      setStoredCookie(flag);
-      showPopup("Flag stored in cookies! Check DevTools.");
-    } else {
-      showPopup("Error: Incorrect cookie name!");
-    }
+  const downloadArcane = () => {
+    const link = document.createElement("a");
+    link.href = "/Challenge0x33/Arcane.py";
+    link.download = "Arcane.py";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
     <div className="challenge-wrapper">
-      {popup.show && <PopupModal message={popup.message} onClose={closePopup} />}
+
+      {/* Background Video */}
       <video autoPlay loop muted className="background-video">
         <source src={bgVideo} type="video/mp4" />
+        Your browser does not support the video tag.
       </video>
-      <button className="back-button" onClick={() => window.history.back()} >Back</button>
-      <div className="challenge-content">
-        <h1 className="challenge-header">0X33 → Bake Cookies</h1>
-        <p className="challenge-instruction">Enter the correct cookie name to retrieve the flag.</p>
 
-        <input
-          type="text"
-          value={cookieName}
-          onChange={(e) => setCookieName(e.target.value)}
-          placeholder="Enter cookie name"
-          className="input-box"
-        />
-        <button onClick={handleSearch} className="search-btn">Submit</button>
+      {/* Challenge Content */}
+      <div className="challenge-content">
+
+        <h1 className="challenge-header">
+          0x17 {'-> Crack the Arcane Calculator'}
+        </h1>
+
+        <p className="challenge-instruction">
+          A mysterious calculator hidden in the stars holds the key to the flag.
+          Download the Python script, analyze the logic carefully,
+          and recover the hidden flag.
+        </p>
+
+        {/* Download Button */}
+        <div className="download-container">
+          <button className="download-btn" onClick={downloadArcane}>
+            Download Arcane.py
+          </button>
+        </div>
+
       </div>
-      <footer className="footer">@ ByteBuster's Club 2025</footer>
     </div>
   );
 };

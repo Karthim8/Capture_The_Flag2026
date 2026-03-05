@@ -128,7 +128,7 @@ const About = () => {
         <h2>6. Reporting Issues</h2>
         <ul>
           <li><strong>Technical Issues:</strong> Report platform problems to the organizers.</li>
-          <li><strong>Security Concerns:</strong> Report vulnerabilities found in challenges.</li>
+          <li><strong>Security Concerns:</strong> Report vulnerabilities found in challenges CRACKED{"{Secure}"}.</li>
         </ul>
 
         <h2>7. Prizes</h2>

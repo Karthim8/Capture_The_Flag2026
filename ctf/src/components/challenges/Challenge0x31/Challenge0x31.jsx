@@ -8,7 +8,7 @@ const Challenge0x31 = () => {
 
   // 🔐 Hidden flag (NOT visible in inspect)
   const secret = (() => {
-    const flag = "THREADS26{XSS_DOMINATION}";
+    const flag = "CRACKED{XSS_DOMINATION}";
     return () => flag;
   })();
 
