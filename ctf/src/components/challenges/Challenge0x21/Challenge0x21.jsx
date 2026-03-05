@@ -1,49 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Challenge21.css";
-import bgVideo from "../video/video bg ctf.mp4"; // Ensure correct file path
+import bgVideo from "../video/video bg ctf.mp4";
 import useTrash from "../trash";
 
+const TARGET_URL = "http://web.ctflearn.com/web7/";
+
 const Challenge0x21 = () => {
-  const { d: SECRET_PASSWORD, error: fetchError } = useTrash(7); // Fetch the secret password
-  const { d: FLAG } = useTrash(8); // Fetch the flag
+  const { d, error } = useTrash("12");
+  const [retrievedData, setRetrievedData] = useState(null);
+  const [answer, setAnswer] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [shake, setShake] = useState(false);
+  const [solved, setSolved] = useState(false);
 
-  const [messages, setMessages] = useState([
-    { text: "🤖 Hello! I have a secret password. Can you guess it?", sender: "bot" },
-  ]);
-  const [userInput, setUserInput] = useState("");
+  useEffect(() => {
+    if (d) setRetrievedData(d);
+  }, [d]);
 
-  const handleGuess = () => {
-    if (!userInput.trim()) return;
+  const handleSubmit = () => {
+    if (!answer.trim()) return;
 
-    // Add user message
-    const newMessages = [...messages, { text: `👤 ${userInput}`, sender: "user" }];
-    const hint = generateHint(userInput.trim());
-
-    // Add bot response
-    newMessages.push({ text: `🤖 ${hint}`, sender: "bot" });
-    setMessages(newMessages);
-    setUserInput("");
+    if (
+      retrievedData &&
+      answer.trim().toLowerCase() === retrievedData.trim().toLowerCase()
+    ) {
+      setSolved(true);
+    } else {
+      setShake(true);
+      setTimeout(() => setShake(false), 600);
+    }
+    setSubmitted(true);
   };
 
-  const generateHint = (input) => {
-    if (!SECRET_PASSWORD) return "⚠️ Loading password... please wait.";
-
-    if (input === SECRET_PASSWORD) {
-      return `🎉 Congratulations! You cracked it! Here is your flag: ${FLAG || "Loading flag..."}`;
-    }
-    if (input.length < SECRET_PASSWORD.length) {
-      return "❌ Hmm... That's too short. Try a longer guess!";
-    } else if (input.length > SECRET_PASSWORD.length) {
-      return "❌ Oops! Too long. Maybe trim it down?";
-    } else {
-      let correctChars = 0;
-      for (let i = 0; i < SECRET_PASSWORD.length; i++) {
-        if (input[i] === SECRET_PASSWORD[i]) {
-          correctChars++;
-        }
-      }
-      return `🔍 You're getting closer! ${correctChars} letters are correct and in the right place.`;
-    }
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") handleSubmit();
   };
 
   return (
@@ -56,33 +46,67 @@ const Challenge0x21 = () => {
 
       {/* Challenge Content */}
       <div className="challenge-content">
-        <h1 className="challenge-header">0x21 {'-> password guessing chat bot'}</h1>
+        <h1 className="challenge-header">0x21 {"-> Insecure Calc"}</h1>
+
         <p className="challenge-instruction">
-          Guess the secret password and unlock the flag!
+          I forget how we were doing those calculations, but something tells me
+          it was pretty <span className="highlight">insecure</span>?
         </p>
 
-        {/* Show fetch error if any */}
-        {fetchError && <p className="error-message">⚠️ Error fetching password</p>}
-
-        {/* Chatbox */}
-        <div className="chatbox">
-          {messages.map((msg, index) => (
-            <p key={index} className={`message ${msg.sender}`}>{msg.text}</p>
-          ))}
+        {/* Target URL Card */}
+        <div className="url-card">
+          <span className="url-label">TARGET</span>
+          <a
+            href={TARGET_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="url-link"
+          >
+            {TARGET_URL}
+          </a>
         </div>
 
-        {/* Input Field */}
-        <div className="input-container">
+        {/* Hint block */}
+        <div className="hint-block">
+          <span className="hint-label">HINT</span>
+          <p className="hint-text">
+            Sometimes calculations are evaluated in ways they shouldn't be.
+            Think about what happens when user input is passed directly to an
+            <span className="highlight"> interpreter</span>.
+          </p>
+        </div>
+
+        {/* Answer Input */}
+        <div className={`answer-section ${shake ? "shake" : ""}`}>
           <input
             type="text"
-            placeholder="Type your guess here..."
-            value={userInput}
-            onChange={(e) => setUserInput(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleGuess()}
-            className="password-input"
+            className="answer-input"
+            placeholder="Enter the flag..."
+            value={answer}
+            onChange={(e) => setAnswer(e.target.value)}
+            onKeyDown={handleKeyDown}
+            disabled={solved}
           />
-          <button onClick={handleGuess} className="submit-button">Submit</button>
+          <button
+            className="submit-btn"
+            onClick={handleSubmit}
+            disabled={solved}
+          >
+            Submit
+          </button>
         </div>
+
+        {/* Wrong answer feedback */}
+        {submitted && !solved && (
+          <p className="wrong-answer">✗ Incorrect. Keep probing.</p>
+        )}
+
+        {/* Flag Display */}
+        {solved && retrievedData && (
+          <div className="flag">
+            🎉 Flag: <span>{retrievedData}</span> 🎉
+          </div>
+        )}
       </div>
     </div>
   );

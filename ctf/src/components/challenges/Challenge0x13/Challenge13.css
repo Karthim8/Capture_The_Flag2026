@@ -1,84 +1,260 @@
-/* Overall Wrapper */
+/* ===== Base Layout (kept from original) ===== */
 .challenge-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding-top: 20px;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: 'Courier New', Courier, monospace;
 }
 
-/* Background Video */
 .background-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  filter: brightness(0.35);
 }
 
-/* Content Styling */
 .challenge-content {
-    position: relative;
-    z-index: 1;
-    color: #00ff00;
-    font-family: "Courier New", monospace;
-    text-shadow: 0px 0px 5px #00ff00;
-    margin-top: 50px;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 40px 30px;
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(0, 255, 140, 0.25);
+  border-radius: 6px;
+  max-width: 620px;
+  width: 90%;
+  box-shadow: 0 0 40px rgba(0, 255, 140, 0.08);
 }
 
+/* ===== Header (kept from original) ===== */
 .challenge-header {
-    font-size: 2.5rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 15px;
+  font-size: 1.8rem;
+  color: #00ff8c;
+  text-shadow: 0 0 10px #00ff8c88;
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
+/* ===== Instruction ===== */
 .challenge-instruction {
-    font-size: 1.2rem;
-    opacity: 0.9;
-    margin-bottom: 20px;
+  color: #c8ffe0;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 28px;
+  opacity: 0.85;
 }
 
-/* Puzzle Container */
-.puzzle-container {
-    position: relative;
-    width: 400px;
-    height: 400px;
-    border: 2px solid #fff;
-    background-color: #222;
-    margin-top: 20px;
+/* ===== View Image Button ===== */
+.view-image-btn {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid #00ff8c;
+  color: #00ff8c;
+  padding: 10px 24px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  border-radius: 3px;
+  margin-bottom: 28px;
+  transition: background 0.2s, box-shadow 0.2s;
+  text-transform: uppercase;
 }
 
-/* Puzzle Pieces */
-.piece {
-    position: absolute;
-    background-size: 400px 400px; /* Ensure background image fits correctly */
-    background-repeat: no-repeat;
-    cursor: grab;
-    border: 1px solid #000;
-    transition: transform 0.2s ease-in-out;
+.view-image-btn:hover {
+  background: rgba(0, 255, 140, 0.1);
+  box-shadow: 0 0 14px rgba(0, 255, 140, 0.35);
 }
 
-.piece:active {
-    cursor: grabbing;
+/* ===== Answer Input Row ===== */
+.answer-section {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  transition: transform 0.1s;
 }
 
-/* Flag Display */
+.answer-section.shake {
+  animation: shakeAnim 0.5s ease;
+}
+
+@keyframes shakeAnim {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-8px); }
+  40%       { transform: translateX(8px); }
+  60%       { transform: translateX(-6px); }
+  80%       { transform: translateX(6px); }
+}
+
+.answer-input {
+  flex: 1;
+  min-width: 220px;
+  max-width: 340px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(0, 255, 140, 0.4);
+  color: #00ff8c;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.95rem;
+  padding: 10px 14px;
+  border-radius: 3px;
+  outline: none;
+  letter-spacing: 1px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.answer-input::placeholder {
+  color: rgba(0, 255, 140, 0.35);
+}
+
+.answer-input:focus {
+  border-color: #00ff8c;
+  box-shadow: 0 0 10px rgba(0, 255, 140, 0.25);
+}
+
+.answer-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.submit-btn {
+  background: transparent;
+  border: 1px solid #00ff8c;
+  color: #00ff8c;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  letter-spacing: 1.5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 3px;
+  text-transform: uppercase;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: rgba(0, 255, 140, 0.12);
+  box-shadow: 0 0 12px rgba(0, 255, 140, 0.3);
+}
+
+.submit-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ===== Feedback ===== */
+.wrong-answer {
+  color: #ff4d4d;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  margin-top: 4px;
+  text-shadow: 0 0 6px rgba(255, 77, 77, 0.5);
+}
+
+/* ===== Flag (kept from original) ===== */
 .flag {
-    display: block;
-    font-size: 24px; /* Larger font size */
-    font-weight: bold;
-    color: #FFD700; /* Gold color for better visibility */
-    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
-    padding: 10px 20px;
-    border-radius: 10px;
-    margin-top: 20px;
-    text-shadow: 2px 2px 5px rgba(255, 215, 0, 0.7); /* Glowing effect */
+  margin-top: 24px;
+  padding: 14px 20px;
+  background: rgba(0, 255, 140, 0.08);
+  border: 1px solid #00ff8c;
+  border-radius: 4px;
+  color: #00ff8c;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px #00ff8c88;
+  animation: fadeInFlag 0.5s ease;
+}
+
+.flag span {
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 8px #00ff8caa;
+}
+
+@keyframes fadeInFlag {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Image Modal ===== */
+.image-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeOverlay 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+
+@keyframes fadeOverlay {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.image-modal {
+  position: relative;
+  background: rgba(5, 10, 5, 0.95);
+  border: 1px solid rgba(0, 255, 140, 0.35);
+  border-radius: 6px;
+  padding: 20px;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 0 60px rgba(0, 255, 140, 0.12);
+  animation: slideUpModal 0.25s ease;
+}
+
+@keyframes slideUpModal {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: #00ff8c;
+  font-size: 1.2rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 3px;
+  transition: background 0.15s;
+}
+
+.modal-close-btn:hover {
+  background: rgba(0, 255, 140, 0.1);
+}
+
+.modal-image {
+  max-width: 80vw;
+  max-height: 70vh;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 255, 140, 0.2);
+  object-fit: contain;
+  display: block;
+}
+
+.modal-caption {
+  color: rgba(0, 255, 140, 0.6);
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  font-family: 'Courier New', Courier, monospace;
 }

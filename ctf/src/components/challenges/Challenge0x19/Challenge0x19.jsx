@@ -1,9 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Challenge19.css";
-import bgVideo from "../video/video bg ctf.mp4"; // Ensure the video exists in the correct path
+import bgVideo from "../video/video bg ctf.mp4";
+import useTrash from "../trash";
+
+const TARGET_URL = "http://165.227.106.113/post.php";
 
 const Challenge0x19 = () => {
-  const fileUrl = `${process.env.PUBLIC_URL}/files/challengecode.py`; // Ensure file is in the public folder
+  const { d, error } = useTrash("10");
+  const [retrievedData, setRetrievedData] = useState(null);
+  const [answer, setAnswer] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [shake, setShake] = useState(false);
+  const [solved, setSolved] = useState(false);
+
+  useEffect(() => {
+    if (d) setRetrievedData(d);
+  }, [d]);
+
+  const handleSubmit = () => {
+    if (!answer.trim()) return;
+
+    if (
+      retrievedData &&
+      answer.trim().toLowerCase() === retrievedData.trim().toLowerCase()
+    ) {
+      setSolved(true);
+    } else {
+      setShake(true);
+      setTimeout(() => setShake(false), 600);
+    }
+    setSubmitted(true);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") handleSubmit();
+  };
 
   return (
     <div className="challenge-wrapper">
@@ -15,20 +46,42 @@ const Challenge0x19 = () => {
 
       {/* Challenge Content */}
       <div className="challenge-content">
-        <h1 className="challenge-header">0x19 {'->Crack a Simple Keygen'}</h1>
-        <p className="challenge-instruction">
-          An important file contains hidden information.
-        </p>
-        
-        {/* Flag */}
-        <p className="flag-text">Flag Format: CRACKED{'{enter the flag}'}</p>
+        <h1 className="challenge-header">0x19 {"-> POST Auth"}</h1>
 
-        {/* Download Button */}
-        <div className="download-container">
-          <a href={fileUrl} download="encrypted_file.py" className="download-button">
-            📥 Download File
+        <p className="challenge-instruction">
+          This website requires authentication, via <span className="highlight">POST</span>.
+          However, it seems as if someone has defaced our site.
+          <br />
+          <br />
+          Maybe there is still some way to authenticate?
+        </p>
+
+        {/* Target URL Card */}
+        <div className="url-card">
+          <span className="url-label">TARGET</span>
+          <a
+            href={TARGET_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="url-link"
+          >
+            {TARGET_URL}
           </a>
         </div>
+
+
+
+        {/* Wrong answer feedback */}
+        {submitted && !solved && (
+          <p className="wrong-answer">✗ Incorrect. Keep probing.</p>
+        )}
+
+        {/* Flag Display */}
+        {solved && retrievedData && (
+          <div className="flag">
+            🎉 Flag: <span>{retrievedData}</span> 🎉
+          </div>
+        )}
       </div>
     </div>
   );

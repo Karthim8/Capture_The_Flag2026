@@ -1,77 +1,44 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Challenge13.css";
 import bgVideo from "../video/video bg ctf.mp4";
 import useTrash from "../trash";
 
-
-const GRID_SIZE = 5; // Changed to 5x5 grid
-const PIECE_SIZE = 80; // Adjusted size to fit a 400px container
-const IMAGE_URL = process.env.PUBLIC_URL + "/puzzle.jpeg"; // Ensure image is in 'public/'
+const IMAGE_URL = process.env.PUBLIC_URL + "/0x13/0x13.png";
 
 const Challenge0x13 = () => {
-  const [pieces, setPieces] = useState([]);
-
-  useEffect(() => {
-    initializePuzzle();
-  }, []);
-
-  const { d, error } = useTrash("4"); // Call the function and get the data
+  const { d, error } = useTrash("4");
   const [retrievedData, setRetrievedData] = useState(null);
+  const [showImage, setShowImage] = useState(false);
+  const [answer, setAnswer] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [shake, setShake] = useState(false);
+  const [solved, setSolved] = useState(false);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     if (d) {
-      setRetrievedData(d); // Save retrieved data in state
+      setRetrievedData(d);
     }
   }, [d]);
 
+  const handleSubmit = () => {
+    if (!answer.trim()) return;
 
-
-
-
-  // Initialize the puzzle pieces
-  const initializePuzzle = () => {
-    let initialPieces = [];
-    for (let i = 0; i < GRID_SIZE * GRID_SIZE; i++) {
-      initialPieces.push({
-        id: i,
-        correctIndex: i,
-        currentIndex: i,
-      });
+    // Check if the answer matches the stored flag/data from useTrash
+    if (
+      retrievedData &&
+      answer.trim().toLowerCase() === retrievedData.trim().toLowerCase()
+    ) {
+      setSolved(true);
+    } else {
+      setShake(true);
+      setTimeout(() => setShake(false), 600);
     }
-    setPieces(shuffle([...initialPieces]));
+    setSubmitted(true);
   };
 
-  // Shuffle function (Fisher-Yates algorithm)
-  const shuffle = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  };
-
-  // Drag Start
-  const handleDragStart = (event, index) => {
-    event.dataTransfer.setData("pieceIndex", index);
-  };
-
-  // Drop Handler
-  const handleDrop = (event, targetIndex) => {
-    event.preventDefault();
-    const draggedIndex = event.dataTransfer.getData("pieceIndex");
-    const newPieces = [...pieces];
-
-    // Swap the dragged and target pieces
-    [newPieces[draggedIndex], newPieces[targetIndex]] = [
-      newPieces[targetIndex],
-      newPieces[draggedIndex],
-    ];
-    setPieces(newPieces);
-  };
-
-  // Check if puzzle is solved
-  const checkSolved = () => {
-    return pieces.every((piece, index) => piece.correctIndex === index);
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") handleSubmit();
   };
 
   return (
@@ -84,37 +51,65 @@ const Challenge0x13 = () => {
 
       {/* Challenge Content */}
       <div className="challenge-content">
-        <h1 className="challenge-header">0x13 {'-> jigsaw puzzle'}</h1>
-        <p className="challenge-instruction">Rearrange the pieces to solve the puzzle!</p>
+        <h1 className="challenge-header">0x13 {"-> church finder"}</h1>
 
-        {/* Puzzle Grid */}
-        <div className="puzzle-container">
-          {pieces.map((piece, index) => (
-            <div
-              key={piece.id}
-              className="piece"
-              draggable
-              onDragStart={(e) => handleDragStart(e, index)}
-              onDragOver={(e) => e.preventDefault()}
-              onDrop={(e) => handleDrop(e, index)}
-              style={{
-                backgroundImage: `url("${IMAGE_URL}")`,
-                backgroundPosition: `${-(piece.correctIndex % GRID_SIZE) * PIECE_SIZE}px ${
-                  -Math.floor(piece.correctIndex / GRID_SIZE) * PIECE_SIZE
-                }px`,
-                width: `${PIECE_SIZE}px`,
-                height: `${PIECE_SIZE}px`,
-                left: `${(index % GRID_SIZE) * PIECE_SIZE}px`,
-                top: `${Math.floor(index / GRID_SIZE) * PIECE_SIZE}px`,
-              }}
-            ></div>
-          ))}
-        </div>
+        <p className="challenge-instruction">
+          When I was overseas I visited a nice church, but I can't remember what
+          it was called. To make it worse, the only picture I have is this photo
+          I took nearby.
+          <br />
+          <br />
+          Can you find the name of the nearest church to this location?
+        </p>
+
+        {/* View Image Button */}
+        <button
+          className="view-image-btn"
+          onClick={() => setShowImage(true)}
+        >
+          🖼 View Image
+        </button>
+
+        {/* Wrong answer feedback */}
+        {submitted && !solved && (
+          <p className="wrong-answer">✗ Incorrect. Keep searching.</p>
+        )}
 
         {/* Flag Display */}
-        {checkSolved() && retrievedData && <div className="flag">🎉 Flag: <span>{retrievedData}</span> 🎉</div>}
-
+        {solved && retrievedData && (
+          <div className="flag">
+            🎉 Flag: <span>{retrievedData}</span> 🎉
+          </div>
+        )}
       </div>
+
+      {/* Image Modal */}
+      {showImage && (
+        <div
+          className="image-modal-overlay"
+          onClick={() => setShowImage(false)}
+        >
+          <div
+            className="image-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="modal-close-btn"
+              onClick={() => setShowImage(false)}
+            >
+              ✕
+            </button>
+            <img
+              src={IMAGE_URL}
+              alt="Location clue"
+              className="modal-image"
+            />
+            <p className="modal-caption">
+              📍 Can you identify the nearest church?
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

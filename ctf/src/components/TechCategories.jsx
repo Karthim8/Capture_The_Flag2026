@@ -1,7 +1,7 @@
-import React, { useState,useEffect } from "react";
-import { useNavigate } from "react-router-dom"; 
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./TechCategories.css";
-import bgVideo from "../video/video bg ctf.mp4"; 
+import bgVideo from "../video/video bg ctf.mp4";
 // import flagVerify from "./challenges/flagVerification";
 // import {getCompletionStatus} from "./compstatus";
 import flagVerify from "./challenges/flagVerification";
@@ -20,17 +20,17 @@ const challenges = [
   { id: "0x10", points: "50 ", description: "UNREAVELING", difficulty: "BEGINEER" },
   { id: "0x11", points: "100 ", description: "XOR ENCODE", difficulty: "CHALLENGER" },
   { id: "0x12", points: "100 ", description: "PHONE WORD", difficulty: "CHALLENGER" },
-  { id: "0x13", points: "50 ", description: "JIGSAW", difficulty: "BEGINEER" },
-  { id: "0x14", points: "100 ", description: "BACON", difficulty: "CHALLENGER" },
+  { id: "0x13", points: "100 ", description: "CRUCH", difficulty: "CHALLENGER" },
+  { id: "0x14", points: "50 ", description: "BACON", difficulty: "BEGINEER" },
   { id: "0x15", points: "100 ", description: "LOCKED VAULT", difficulty: "CHALLENGER" },
-  { id: "0x16", points: "100 ", description: "DOCTOR BLACK", difficulty: "CHALLENGER" },
+  { id: "0x16", points: "200 ", description: "BICKE SHOP HUNT", difficulty:  "MASTER" },
   { id: "0x17", points: "100 ", description: "ATTACK", difficulty: "CHALLENGER" },
   { id: "0x18", points: "50 ", description: "ERROR FRAME", difficulty: "BEGINEER" },
-  { id: "0x19", points: "200 ", description: "KEYGEN BREAKER", difficulty: "MASTER" },
+  { id: "0x19", points: "200 ", description: "PHP ", difficulty: "MASTER" },
   { id: "0x20", points: "100 ", description: "DESHUFFLING", difficulty: "CHALLENGER" },
-  { id: "0x21", points: "100 ", description: "LOCKPICK AI", difficulty: "CHALLENGER" },
+  { id: "0x21", points: "100 ", description: "PYTHON CALCULATOR(will check and decide)", difficulty: "CHALLENGER" },
   { id: "0x22", points: "100 ", description: "LEXICAL UNIFICATION GRID", difficulty: "CHALLENGER" },
-  { id: "0x23", points: "150 ", description: "STEGNOGRAPHY", difficulty: "CHALLENGER" },
+  { id: "0x23", points: "100 ", description: "Network Forensics", difficulty: "CHALLENGER" },
   { id: "0x24", points: "50 ", description: "HUNTING", difficulty: "BEGINEER" },
   { id: "0x25", points: "200 ", description: "FILE HUNT", difficulty: "MASTER" },
   { id: "0x26", points: "100 ", description: "UN SHIFT", difficulty: "CHALLENGER" },
@@ -54,7 +54,7 @@ const TechCategories = () => {
   const [completed, setCompleted] = useState({});
   const [userFlags, setUserFlags] = useState({});
   const [messages, setMessages] = useState({});
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const loggedInTeam = localStorage.getItem("loggedInTeam");
 
@@ -89,8 +89,8 @@ const TechCategories = () => {
     } else {
       setMessages((prev) => ({ ...prev, [index]: "🚫 Incorrect flag or already submitted. Try again." }));
     }
-  }; 
-  
+  };
+
   return (
     <div className="tech-container">
       {/* Background Video */}
@@ -119,11 +119,11 @@ const TechCategories = () => {
               </button>
               <button className="tech-button">💡 Get HINT</button>
               <div className="flag-container">
-                <input 
-                  type="text" 
-                  className="flag-input" 
-                  placeholder="Enter Flag" 
-                  value={userFlags[index] || ""} 
+                <input
+                  type="text"
+                  className="flag-input"
+                  placeholder="Enter Flag"
+                  value={userFlags[index] || ""}
                   onChange={(e) => setUserFlags((prev) => ({ ...prev, [index]: e.target.value }))}
                 />
                 <button className="flag-submit" onClick={() => handleFlagSubmit(index, challenge.id)}>

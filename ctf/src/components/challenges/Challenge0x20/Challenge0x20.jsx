@@ -15,7 +15,7 @@ const Challenge0x20 = () => {
       <div className="challenge-content">
         <h1 className="challenge-header">0x20 {"->"} Pulse Patterns</h1>
         <p className="challenge-instruction">
-        Communication is key, yet sometimes it's hidden in plain sight.Pulse Patterns may seem random, but only those who listen closely will hear the signal through the noise. Decode what’s written below, but be warned—some things are not as they appear!!
+ 
         </p>
         <p className="challenge-morse">
           -.-. .-. .- -.-. -.- . -.. # .-. .. -.-. -.- .- -. -.. -- --- .-. - -.-- .. ... - .... . -... . ... - #
