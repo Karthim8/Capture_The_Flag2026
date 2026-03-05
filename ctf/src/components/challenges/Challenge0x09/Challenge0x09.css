@@ -1,0 +1,93 @@
+.challenge-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Background video */
+.background-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+/* Challenge Card */
+.challenge-content {
+  text-align: center;
+  padding: 40px;
+
+  width: 550px;
+  max-width: 90%;
+
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(10px);
+
+  border: 2px solid #00ff9d;
+  border-radius: 10px;
+
+  color: #00ff9d;
+
+  box-shadow: 0 0 20px #00ff9d;
+}
+
+/* Header */
+.challenge-header {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+/* Instructions */
+.challenge-instruction {
+  font-size: 16px;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+/* Action Button */
+.action-btn {
+  padding: 12px 25px;
+  font-size: 16px;
+
+  border: none;
+  border-radius: 6px;
+
+  background-color: #00ff9d;
+  color: black;
+
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.action-btn:hover {
+  background-color: #00cc7a;
+}
+
+/* Download Section */
+.download-section {
+  margin-top: 10px;
+}
+
+.download-btn {
+  padding: 12px 25px;
+  font-size: 16px;
+
+  border: none;
+  border-radius: 6px;
+
+  background-color: red;
+  color: white;
+
+  cursor: pointer;
+}
+
+.download-btn:hover {
+  background-color: darkred;
+}

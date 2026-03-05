@@ -1,72 +1,80 @@
-import React, { useState } from "react";
-
-import useTrash from "../trash";
+import React, { useState, useEffect } from "react";
 import "./Challenge15.css";
-import bgVideo from "../../video/video bg ctf.mp4"; // Ensure the correct path
-
-const FILE_URL = process.env.PUBLIC_URL + "/files/challenge0x15.zip"; // File in public folder
+import bgVideo from "../video/video bg ctf.mp4";
 
 const Challenge0x15 = () => {
-  const { d: CORRECT_PASSWORD, error: fetchError } = useTrash(6); // Fetch the correct password
-  const { d: FLAG } = useTrash(5); // Fetch the flag
 
-  const [password, setPassword] = useState("");
-  const [isUnlocked, setIsUnlocked] = useState(false);
-  const [error, setError] = useState("");
+  const [input, setInput] = useState("");
+  const [flag, setFlag] = useState("");
+  const [placeholder, setPlaceholder] = useState("");
 
-  const handleUnlock = () => {
-    if (password === CORRECT_PASSWORD) {
-      setIsUnlocked(true);
-      setError("");
+  const realPlaceholder = "CRACKED{put_your_flag_here}";
+
+  useEffect(() => {
+
+    const interval = setInterval(() => {
+
+      // show placeholder after 10 seconds
+      setTimeout(() => {
+        setPlaceholder(realPlaceholder);
+      }, 1000);
+
+      // hide placeholder after 20 seconds
+      setTimeout(() => {
+        setPlaceholder("");
+      }, 3000);
+
+    }, 3000);
+
+    return () => clearInterval(interval);
+
+  }, []);
+
+  const checkFlag = () => {
+    if (input === realPlaceholder) {
+      setFlag("🎉 Correct Flag!");
     } else {
-      setError("❌ Incorrect password! Try again.");
+      setFlag("❌ Incorrect flag");
     }
   };
 
   return (
     <div className="challenge-wrapper">
+
       {/* Background Video */}
       <video autoPlay loop muted className="background-video">
         <source src={bgVideo} type="video/mp4" />
-        Your browser does not support the video tag.
       </video>
 
-      {/* Challenge Content */}
+      {/* Challenge Card */}
       <div className="challenge-content">
-        <h1 className="challenge-header">0x15 {'-> password protected'}</h1>
-        <p className="challenge-instruction">
-          Download the file and enter the correct password to unlock the flag!
-        </p>
 
-        {/* Show fetch error if any */}
-        {fetchError && <p className="error-message">⚠️ Error fetching password</p>}
+        <h1 className="challenge-header">
+          0x15 {"-> Plain Sight"}
+        </h1>
 
-        {/* Download File Button */}
-        {!isUnlocked && (
-          <a href={FILE_URL} download className="download-button">
-            Download File
-          </a>
-        )}
+        <div className="challenge-instruction">
+          <p>
+            Sometimes the answer is hiding in plain sight.
+          </p>
+        </div>
 
-        {/* Password Input Section */}
-        {!isUnlocked ? (
-          <div className="password-container">
-            <input
-              type="password"
-              placeholder="Enter Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="password-input"
-            />
-            <button onClick={handleUnlock} className="unlock-button">
-              Unlock
-            </button>
-            {error && <p className="error-message">{error}</p>}
-          </div>
-        ) : (
-          <div className="flag">🎉 {FLAG || "Flag Unlocked"} 🎉</div>
-        )}
+        <input
+          type="text"
+          placeholder={placeholder}
+          className="flag-input"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+        />
+
+        <button className="submit-btn" onClick={checkFlag}>
+          Submit
+        </button>
+
+        {flag && <p className="flag-result">{flag}</p>}
+
       </div>
+
     </div>
   );
 };
