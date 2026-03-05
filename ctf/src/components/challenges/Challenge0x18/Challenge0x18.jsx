@@ -15,8 +15,8 @@ const Challenge0x18 = () => {
       <div className="challenge-content">
         <h1 className="challenge-header">0x18 {"->"} Say My Name</h1>
         <div className="challenge-instruction">
-          <p>Subash left behind a file before disappearing. He claimed it was just a normal picture and nothing more. But something about it feels… suspicious.</p>
-          <p>Maybe the file knows its own identity, but you need to ask the right question. After all, a certain chemist once said:</p>
+          <p>Subash left behind a file before disappearing. He claimed it was just a normal picture and nothing more. But something about it feels… suspicious.
+            Maybe the file knows its own identity, but you need to ask the right question. After all, a certain chemist once said:</p>
           <p>“Say my name.”</p>
         </div>
         <a
