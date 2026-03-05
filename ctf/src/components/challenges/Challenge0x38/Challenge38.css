@@ -1,44 +1,119 @@
-.challenge-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow:auto;
-    display: flex;
-    justify-content: center;
-    /* align-items: center; */
-    text-align: center;
+.challenge-wrapper{
+    position:relative;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
-/* Background Video */
-.background-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
+.background-video{
+    position:absolute;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-1;
 }
 
-/* Content Styling */
-.challenge-content {
-    position: relative;
-    z-index: 1;
-    color: #00ff00;
-    font-family: "Courier New", monospace;
-    text-shadow: 0px 0px 5px #00ff00;
-    margin-top: 80px;
+.insta-container{
+    display:flex;
+    align-items:center;
+    gap:80px;
 }
 
-.challenge-header {
-    font-size: 2.5rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 15px;
+.phone-preview img{
+    width:420px;
 }
 
-.challenge-instruction {
-    font-size: 1.2rem;
-    opacity: 0.9;
+.login-area{
+    display:flex;
+    flex-direction:column;
+}
+
+.login-card{
+    background:white;
+    width:350px;
+    border:1px solid #dbdbdb;
+    padding:40px;
+    text-align:center;
+}
+
+.logo{
+    font-family:cursive;
+    font-size:38px;
+    margin-bottom:20px;
+}
+
+.login-card input{
+    width:100%;
+    padding:10px;
+    margin:6px 0;
+    border:1px solid #dbdbdb;
+    background:#fafafa;
+}
+
+.login-card button{
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    background:#0095f6;
+    border:none;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.divider{
+    display:flex;
+    align-items:center;
+    margin:15px 0;
+}
+
+.divider span{
+    flex:1;
+    height:1px;
+    background:#ccc;
+}
+
+.divider p{
+    margin:0 10px;
+    color:#999;
+}
+
+.facebook{
+    color:#385185;
+    font-weight:bold;
+}
+
+.forgot{
+    font-size:13px;
+    color:#00376b;
+}
+
+.signup-card{
+    margin-top:15px;
+    background:white;
+    border:1px solid #dbdbdb;
+    padding:20px;
+    text-align:center;
+}
+
+.signup-card span{
+    color:#0095f6;
+    font-weight:bold;
+}
+
+.app-section{
+    text-align:center;
+    margin-top:20px;
+}
+
+.store-buttons img{
+    width:150px;
+    margin:5px;
+}
+
+.result{
+    margin-top:15px;
+    color:green;
+    font-weight:bold;
 }

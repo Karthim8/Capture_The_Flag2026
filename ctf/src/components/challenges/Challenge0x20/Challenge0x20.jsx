@@ -1,10 +1,11 @@
 import React from "react";
-import "./Challenge20.css"; 
-import bgVideo from "../video/video bg ctf.mp4"; // Ensure you have the video file in the correct path
+import "./Challenge20.css";
+import bgVideo from "../video/video bg ctf.mp4";
 
 const Challenge0x20 = () => {
   return (
     <div className="challenge-wrapper">
+      
       {/* Background Video */}
       <video autoPlay loop muted className="background-video">
         <source src={bgVideo} type="video/mp4" />
@@ -13,13 +14,28 @@ const Challenge0x20 = () => {
 
       {/* Challenge Content */}
       <div className="challenge-content">
-        <h1 className="challenge-header">0x20 {"->"} Pulse Patterns</h1>
+
+        <h1 className="challenge-header">0x20 {"->"} PDF Hidden Flag</h1>
+
         <p className="challenge-instruction">
-        Communication is key, yet sometimes it's hidden in plain sight.Pulse Patterns may seem random, but only those who listen closely will hear the signal through the noise. Decode what’s written below, but be warned—some things are not as they appear!!
+          A PDF file contains the hidden flag.
+          Carefully inspect the document and analyze the patterns hidden
+          inside the text.
         </p>
-        <p className="challenge-morse">
-          -.-. .-. .- -.-. -.- . -.. # .-. .. -.-. -.- .- -. -.. -- --- .-. - -.-- .. ... - .... . -... . ... - #
+        <p>Find words that contain <b>more than two capital letters</b>.
+          Also extract <b>capital letters mixed with numbers</b>.
         </p>
+        
+        <p>
+          Arrange them in the correct order and decode the result using
+          the correct <b>base encoding format</b> to reveal the hidden flag.
+        </p>
+
+        {/* PDF Download */}
+        <a href="/pdfhiddenflag.pdf" download className="challenge-file">
+          Download PDF File
+        </a>
+
       </div>
     </div>
   );
