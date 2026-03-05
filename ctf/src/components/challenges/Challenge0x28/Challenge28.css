@@ -1,11 +1,13 @@
+/* Challenge Wrapper */
 .challenge-wrapper {
     position: relative;
     width: 100%;
-    height: 100vh;
-    overflow:auto;
+    min-height: 100vh;
+    overflow: hidden;
     display: flex;
     justify-content: center;
-    /* align-items: center; */
+    align-items: center;
+    flex-direction: column;
     text-align: center;
 }
 
@@ -20,33 +22,100 @@
     z-index: -1;
 }
 
-/* Content Styling */
+/* Content Box Styling - Exact match to Challenge0x02 */
 .challenge-content {
     position: relative;
-    z-index: 1;
-    color: #00ff00;
-    font-family: "Courier New", monospace;
-    text-shadow: 0px 0px 5px #00ff00;
-    margin-top: 80px;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 25px 20px;
+    border-radius: 12px;
+
+    border: 2px solid #00ff00;
+    box-shadow: 0 0 25px #00ff00;
+
+    max-width: 1000px;
+    width: 90%;
+
+    margin-top: 120px;
 }
 
+/* Header Styling */
 .challenge-header {
     font-size: 2.5rem;
     font-weight: bold;
+    color: #00ff00;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 15px;
+    text-shadow: 0px 0px 8px #00ff00;
+    margin-bottom: 0px;
+    font-family: "Courier New", monospace;
 }
 
+/* Instruction Text */
 .challenge-instruction {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    color: #ffffff;
+    font-family: "Courier New", monospace;
     opacity: 0.9;
+    line-height: 1.5;
+    max-width: 100%;
+    text-align: left;
+    margin-bottom: 2px;
 }
 
-.challenge-image {
-    max-width: 300px; /* Adjust width */
-    height: auto; /* Maintain aspect ratio */
-    display: block;
-    margin: 10px auto; /* Center image */
-  }
-  
+/* Terminal/Flag Text style from Challenge0x02 */
+.challenge-flag,
+.challenge-terminal {
+    font-size: 1.1rem;
+    color: #00ff00;
+    background: black;
+    padding: 3px;
+    display: inline-block;
+    font-family: "Courier New", monospace;
+    margin-top: 5px;
+    border-radius: 4px;
+    width: 100%;
+    text-align: center;
+}
+
+.challenge-terminal a {
+    color: #00ff00;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 0px;
+}
+
+.challenge-terminal a:hover {
+    text-shadow: 0 0 5px #00ff00;
+}
+
+/* Hints Button */
+.hints-toggle-btn {
+    background: transparent;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    padding: 5px 10px;
+    font-family: "Courier New", monospace;
+    margin-top: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.hints-toggle-btn:hover {
+    background: #00ff00;
+    color: #000;
+}
+
+/* Hints List */
+.hints-list {
+    margin-top: 15px;
+    background: black;
+    border: 1px solid #00ff00;
+    padding: 15px;
+    text-align: left;
+    color: #ffaa00;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    font-family: "Courier New", monospace;
+    max-height: 150px;
+    overflow-y: auto;
+}

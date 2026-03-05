@@ -20,7 +20,7 @@ const Challenge0x06 = () => {
       <div className="challenge-content">
 
         <h1 className="challenge-header">
-          0x07 {"->"} Hidden Endpoint
+          0x06 {"->"} Hidden Endpoint
         </h1>
 
         <p className="challenge-description">

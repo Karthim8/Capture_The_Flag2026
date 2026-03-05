@@ -1,91 +1,68 @@
-/* Challenge Wrapper */
 .challenge-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;  
-    display: flex;
-    justify-content: center;
-    align-items: center; /* Vertical and horizontal centering */
-    text-align: center;
-    flex-direction: column;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
 }
 
-/* Background Video */
 .background-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  z-index: -1;
 }
 
-/* Content Box Styling */
 .challenge-content {
-    position: relative;
-    z-index: 1;
-    background: rgba(0, 0, 0, 0.85); /* Dark semi-transparent background */
-    padding: 20px;
-    border-radius: 10px;
-    border: 2px solid #00ff00; /* Green neon border */
-    box-shadow: 0px 0px 10px #00ff00;
-    max-width: 600px;
-    text-align: center;
+  text-align: center;
+  padding: 40px;
+
+  width: 500px;
+  max-width: 90%;
+
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(10px);
+
+  border: 2px solid #00ff9d;
+  border-radius: 10px;
+
+  color: #00ff9d;
+
+  box-shadow: 0 0 20px #00ff9d;
 }
 
-/* Header Styling */
 .challenge-header {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #00ff00;
-    text-transform: uppercase;
-    text-shadow: 0px 0px 8px #00ff00;
-    margin-bottom: 15px;
-    font-family: "Courier New", monospace;
+  font-size: 30px;
+  margin-bottom: 20px;
 }
 
-/* Instruction Text */
 .challenge-instruction {
-    font-size: 1.1rem;
-    color: #ffffff;
-    font-family: "Courier New", monospace;
-    opacity: 0.9;
-    line-height: 1.5;
-    max-width: 600px;
-    padding-top: 20px;
+  font-size: 16px;
+  margin-bottom: 25px;
 }
 
-/* Flag Text */
-.challenge-flag {
-    font-size: 1.1rem;
-/* Red color for emphasis */
-    background: black;
-    padding: 10px;
-    word-break: break-word;
-    display: inline-block;
-    font-family: "Courier New", monospace;
+.download-btn {
+  padding: 12px 28px;
+  font-size: 16px;
+
+  border: none;
+  border-radius: 6px;
+
+  background-color: #00ff9d;
+  color: black;
+
+  cursor: pointer;
 }
 
-/* Button Styling */
-.ctf-button {
-    display: inline-block;
-    padding: 10px 20px;
-    margin-top: 20px;
-    background: red;
-    color: white;
-    font-size: 1rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    border-radius: 5px;
-    text-decoration: none;
-    box-shadow: 0px 0px 5px red;
-    transition: all 0.3s ease-in-out;
-    font-family: "Courier New", monospace;
+.download-btn:hover {
+  background-color: #00cc7a;
 }
-
-.ctf-button:hover {
-    background: darkred;
-    box-shadow: 0px 0px 10px red;
-}   

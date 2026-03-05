@@ -98,7 +98,7 @@ const Challenge0x03 = () => {
         <div className="challenge-header">
           <span className="hex-label">0x03</span>
           <span className="arrow-sep">→</span>
-          <GlitchText key={glitchKey} text="BROKEN IMAGE" />
+          <GlitchText key={glitchKey} text="BROKEN PARADISE" />
         </div>
 
         {/* Broken image preview */}
