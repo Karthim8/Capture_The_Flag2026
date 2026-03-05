@@ -8,10 +8,10 @@ import flagVerify from "./challenges/flagVerification";
 import checkCompletion from "./challenges/compstatus";
 
 const challenges = [
-  { id: "0x01", points: "50 ", description: "LOG HUNT", difficulty: "BEGINEER" },
+  { id: "0x01", points: "50 ", description: "SAMPLE FLAG", difficulty: "BEGINEER" },
   { id: "0x02", points: "100 ", description: "WORLD NET", difficulty: "CHALLENGER" },
-  { id: "0x03", points: "50 ", description: "BROKEN PARADISE", difficulty: "BEGINEER" },
-  { id: "0x04", points: "50 ", description: "HIDDEN HISTORY", difficulty: "BEGINEER" },
+  { id: "0x03", points: "50 ", description: "TRACK ME", difficulty: "BEGINEER" },
+  { id: "0x04", points: "50 ", description: "ENIGMA HOIST", difficulty: "BEGINEER" },
   { id: "0x05", points: "50 ", description: "CAN YOU BEAT THIS ?", difficulty: "BEGINEER" },
   { id: "0x06", points: "200 ", description: "BLANK", difficulty: "MASTER" },
   { id: "0x07", points: "50 ", description: "HIDDEN HAVEN", difficulty: "BEGINEER" },
