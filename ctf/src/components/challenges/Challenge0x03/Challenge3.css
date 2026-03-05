@@ -1,99 +1,341 @@
-/* Wrapper for the challenge */
-.challenge-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+/* ============================================
+   Challenge0x04.css — Broken Image / Forensics
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Syne:wght@700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Background Video */
+:root {
+    --red: #ff2020;
+    --red-dim: #aa1a1a;
+    --red-glow: rgba(255, 32, 32, 0.4);
+    --red-faint: rgba(255, 32, 32, 0.07);
+    --amber: #ff9900;
+    --white: #ffe8e8;
+    --muted: #886666;
+    --bg: #0a0000;
+    --card-bg: rgba(15, 2, 2, 0.85);
+    --border: rgba(255, 32, 32, 0.25);
+}
+
+/* ── Layout ── */
+.challenge-wrapper {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: auto;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'VT323', monospace;
+    padding-top: 80px;
+    /* Space for the fixed navbar */
+    padding-bottom: 40px;
+}
+
 .background-video {
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: -1;
+    opacity: 0.35;
+    z-index: 0;
 }
 
-/* Content Box */
+.scanlines {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: repeating-linear-gradient(to bottom,
+            transparent 0px,
+            transparent 3px,
+            rgba(0, 0, 0, 0.22) 3px,
+            rgba(0, 0, 0, 0.22) 4px);
+}
+
+.vignette {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.7) 100%);
+}
+
+/* ── Content ── */
 .challenge-content {
     position: relative;
-    z-index: 1;
-    background: rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    border-radius: 10px;
-    border: 2px solid #00ff0071;
-    box-shadow: 0px 0px 15px #00ff0000;
-    width: 50%;
+    z-index: 10;
+    width: min(560px, 92vw);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin: auto;
+    /* Centering helper for flex container */
+    animation: fadeUp 0.7s ease both;
 }
 
-/* Challenge Header */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Header ── */
 .challenge-header {
-    font-size: 2rem;
-    font-weight: bold;
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(26px, 5vw, 40px);
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    letter-spacing: 0.04em;
+}
+
+.hex-label {
+    color: var(--red);
+    text-shadow: 0 0 14px var(--red-glow), 0 0 30px var(--red-glow);
+}
+
+.arrow-sep {
+    color: var(--red-dim);
+    font-size: 0.8em;
+}
+
+.glitch-text {
+    color: var(--white);
+    font-family: 'Syne', sans-serif;
+    letter-spacing: 0.06em;
+}
+
+/* ── Broken Image Frame ── */
+.broken-frame {
+    position: relative;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow:
+        0 0 0 1px rgba(255, 32, 32, 0.08),
+        0 0 30px rgba(255, 32, 32, 0.12);
+    background: #050000;
+}
+
+.noise-canvas {
+    display: block;
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    opacity: 0.7;
+}
+
+.broken-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.broken-icon {
+    font-size: 32px;
+    color: var(--amber);
+    text-shadow: 0 0 12px rgba(255, 153, 0, 0.6);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.broken-label {
+    font-family: 'VT323', monospace;
+    font-size: 22px;
+    color: var(--red);
+    letter-spacing: 0.15em;
+    text-shadow: 0 0 8px var(--red-glow);
+}
+
+.broken-bytes {
+    font-family: 'VT323', monospace;
+    font-size: 15px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+}
+
+/* ── Description Card ── */
+.desc-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    backdrop-filter: blur(4px);
+}
+
+.desc-badge {
+    font-family: 'VT323', monospace;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    color: var(--red);
     text-transform: uppercase;
-    color: #00ff00;
-    font-family: "Courier New", monospace;
-    text-shadow: 0px 0px 10px #00ff00;
-    margin-bottom: 15px;
 }
 
-/* Challenge Instruction */
-.challenge-instruction, .challenge-number {
-    font-size: 1.5rem;
-    color: #00ff00;
-    font-family: "Courier New", monospace;
-    text-shadow: 0px 0px 5px #00ff0000;
+.desc-text {
+    font-family: 'VT323', monospace;
+    font-size: 19px;
+    color: #ccaaaa;
+    line-height: 1.65;
+    letter-spacing: 0.03em;
 }
 
-/* Input Box */
-.challenge-input {
-    width: 60%;
-    padding: 10px;
-    margin-top: 10px;
-    border: 2px solid #00ff00;
-    background: black;
-    color: #00ff00;
-    font-family: "Courier New", monospace;
-    text-align: center;
-    font-size: 1rem;
+.desc-text em {
+    color: var(--white);
+    font-style: italic;
+}
+
+.highlight {
+    color: var(--amber);
+    text-shadow: 0 0 6px rgba(255, 153, 0, 0.4);
+}
+
+/* ── Hint Strip ── */
+.hint-strip {
+    background: rgba(255, 153, 0, 0.06);
+    border: 1px solid rgba(255, 153, 0, 0.2);
+    border-radius: 4px;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'VT323', monospace;
+    font-size: 17px;
+    color: #cc9944;
+    letter-spacing: 0.04em;
+}
+
+.hint-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.hint-text strong {
+    color: var(--amber);
+}
+
+/* ── Download Button ── */
+.download-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: transparent;
+    border: 1px solid var(--red);
     border-radius: 5px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Submit Button */
-.challenge-button {
-    display: block;
-    margin: 15px auto 0 auto;
-    padding: 12px 24px;
-    border: 2px solid #00ff00;
-    background: black;
-    color: #00ff00;
-    font-family: "Courier New", monospace;
-    font-size: 1.1rem;
+    padding: 14px 20px;
     cursor: pointer;
-    border-radius: 5px;
-    text-transform: uppercase;
+    width: 100%;
+    color: var(--red);
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    letter-spacing: 0.06em;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+    position: relative;
+    overflow: hidden;
 }
 
-.challenge-button:hover {
-    background: #00ff00;
-    color: black;
+.download-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 32, 32, 0.08), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.45s;
 }
 
-/* Flag Display */
-.challenge-flag {
-    margin-top: 10px;
-    font-size: 1.2rem;
-    color: #00ff00;
-    font-family: "Courier New", monospace;
-    text-shadow: 0px 0px 5px #00ff00;
+.download-btn:hover::before {
+    transform: translateX(100%);
+}
+
+.download-btn:hover {
+    background: var(--red-faint);
+    box-shadow: 0 0 22px var(--red-glow), inset 0 0 10px rgba(255, 32, 32, 0.04);
+    transform: translateY(-1px);
+}
+
+.download-btn:active {
+    transform: translateY(0);
+}
+
+.dl-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    text-shadow: 0 0 8px var(--red-glow);
+}
+
+.dl-main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    gap: 2px;
+}
+
+.dl-title {
+    font-size: 20px;
+    color: var(--white);
+    text-shadow: 0 0 6px var(--red-glow);
+    letter-spacing: 0.06em;
+}
+
+.dl-sub {
+    font-size: 14px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+}
+
+.dl-badge {
+    background: rgba(255, 32, 32, 0.12);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 2px 10px;
+    font-size: 15px;
+    color: var(--red-dim);
+    letter-spacing: 0.1em;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+    .challenge-content {
+        gap: 14px;
+    }
+
+    .noise-canvas {
+        height: 130px;
+    }
 }

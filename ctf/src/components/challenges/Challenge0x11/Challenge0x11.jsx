@@ -1,27 +1,44 @@
 import React from "react";
-import "./Challenge11.css";  
-import bgVideo from "../video/video bg ctf.mp4"; // Background video
+import "./Challenge11.css";
+import bgVideo from "../video/video bg ctf.mp4";
 
 const Challenge0x11 = () => {
+
+  const runChallenge = () => {
+    window.open("http://localhost:3009", "_blank");
+  };
+
   return (
     <div className="challenge-wrapper">
-      {/* Background Video */}
+
       <video autoPlay loop muted className="background-video">
         <source src={bgVideo} type="video/mp4" />
-        Your browser does not support the video tag.
       </video>
 
-      {/* Challenge Content */}
       <div className="challenge-content">
-        <h1 className="challenge-header">0x11 {'-> XOR encoded'}</h1>
-        <p className="challenge-instruction">
-          The flag is XOR-encoded with a single-byte key.
+
+        <h1 className="challenge-header">
+          0x08 → Cookie Monster
+        </h1>
+
+        <p className="challenge-description">
+          The Cookie Monster loves cookies, but only special visitors
+          are allowed to see the secret recipe.
         </p>
 
-        {/* Download Link */}
-        <a href="/files/xor_challenge.txt" download="xor_challenge.txt" className="download-link">
-          📥 Download Challenge File
-        </a>
+        <p className="challenge-description">
+          The website uses cookies to determine who you are.
+          Maybe the monster trusts cookies too much...
+        </p>
+
+        <p className="challenge-hint">
+          Hint: Try inspecting or modifying browser cookies.
+        </p>
+
+        <button className="run-btn" onClick={runChallenge}>
+          Run Challenge
+        </button>
+
       </div>
     </div>
   );

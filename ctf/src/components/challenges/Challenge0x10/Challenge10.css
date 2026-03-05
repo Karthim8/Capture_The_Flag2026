@@ -1,17 +1,15 @@
 .challenge-wrapper {
-    position: relative;
-    width: 100%;
     height: 100vh;
-    overflow:auto;
-    display: flex;
-    justify-content: center;
-    /* align-items: center; */
-    text-align: center;
+    width: 100%;
+    position: relative;
+    font-family: "Courier New", monospace;
+    overflow: hidden;
 }
 
-/* Background Video */
+/* Background */
+
 .background-video {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -20,26 +18,76 @@
     z-index: -1;
 }
 
-/* Content Styling */
-.challenge-content {
-    position: relative;
-    z-index: 1;
-    color: #00ff00;
-    font-family: "Courier New", monospace;
-    text-shadow: 0px 0px 5px #00ff00;
-    margin-top: 80px;
+/* Center container */
+
+.challenge-center {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.challenge-header {
-    font-size: 2.5rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 15px;
+/* Main card */
+
+.challenge-card {
+    width: 650px;
+    padding: 50px;
+    background: rgba(0, 0, 0, 0.85);
+    border-radius: 15px;
+    border: 2px solid #00ffc8;
+    text-align: center;
+    box-shadow: 0 0 25px #00ffc8;
 }
 
-.challenge-instruction {
-    font-size: 1.2rem;
-    opacity: 0.9;
-    font-family: "Courier New", monospace;
+/* Title */
+
+.challenge-title {
+    font-size: 38px;
+    color: #00ff88;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px #00ff88;
+}
+
+/* Decorative line */
+
+.vertical-line {
+    width: 3px;
+    height: 60px;
+    background: #00ffc8;
+    margin: 0 auto 30px auto;
+}
+
+/* Text */
+
+.challenge-text {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #d2ffe9;
+    margin-bottom: 20px;
+}
+
+/* Hint */
+
+.hint {
+    font-style: italic;
+    color: #9effcf;
+}
+
+/* Button */
+
+.view-btn {
+    margin-top: 20px;
+    padding: 12px 30px;
+    font-size: 18px;
+    background: transparent;
+    border: 2px solid #00ffc8;
+    color: #00ffc8;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.view-btn:hover {
+    background: #00ffc8;
+    color: black;
+    box-shadow: 0 0 15px #00ffc8;
 }

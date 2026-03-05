@@ -1,89 +1,522 @@
-/* Challenge Wrapper */
-.challenge-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;  
-    display: flex;
-    justify-content: center;
-    align-items: center; /* Vertical and horizontal centering */
-    text-align: center;
-    flex-direction: column;
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700;900&display=swap');
+
+/* ════════════════════════════════════════════════════════════
+   ANIMATIONS
+════════════════════════════════════════════════════════════ */
+@keyframes scanMove {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 0 100px;
+    }
 }
 
-/* Background Video */
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+@keyframes glitch1 {
+    0% {
+        clip-path: inset(40% 0 61% 0);
+        transform: translate(-4px);
+    }
+
+    50% {
+        clip-path: inset(10% 0 85% 0);
+        transform: translate(4px);
+    }
+
+    100% {
+        clip-path: inset(40% 0 61% 0);
+        transform: translate(-4px);
+    }
+}
+
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: scale(0.92) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes glowPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 18px rgba(0, 255, 140, 0.35), 0 0 40px rgba(0, 255, 140, 0.12);
+    }
+
+    50% {
+        box-shadow: 0 0 28px rgba(0, 255, 140, 0.6), 0 0 60px rgba(0, 255, 140, 0.2);
+    }
+}
+
+/* ════════════════════════════════════════════════════════════
+   PAGE LAYOUT
+════════════════════════════════════════════════════════════ */
+.challenge-wrapper {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Share Tech Mono', monospace;
+    background: #000;
+}
+
 .background-video {
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: -1;
+    opacity: 0.35;
 }
 
-/* Content Box Styling */
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 10, 5, 0.85) 100%);
+    z-index: 1;
+}
+
+.scanlines {
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 255, 140, 0.03) 2px,
+            rgba(0, 255, 140, 0.03) 4px);
+    background-size: 100% 100px;
+    animation: scanMove 8s linear infinite;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* ════════════════════════════════════════════════════════════
+   CHALLENGE CONTENT
+════════════════════════════════════════════════════════════ */
 .challenge-content {
     position: relative;
-    z-index: 1;
-    background: rgba(0, 0, 0, 0.85); /* Dark semi-transparent background */
-    padding: 20px;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    max-width: 680px;
+    width: 90%;
+    animation: fadeSlideUp 1s ease both;
+}
+
+.header-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.challenge-tag {
+    background: rgba(0, 255, 140, 0.1);
+    border: 1px solid rgba(0, 255, 140, 0.5);
+    color: #00ff8c;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    padding: 4px 12px;
+    letter-spacing: 2px;
+    border-radius: 2px;
+}
+
+.challenge-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(22px, 4vw, 38px);
+    font-weight: 900;
+    color: #e8ffe0;
+    margin: 0;
+    letter-spacing: 3px;
+    text-shadow: 0 0 20px rgba(0, 255, 140, 0.4);
+}
+
+.challenge-title.glitch {
+    animation: glitch1 0.2s steps(2) forwards;
+    color: #ff4ecd;
+    text-shadow: 2px 0 #00ff8c, -2px 0 #ff4ecd;
+}
+
+.challenge-description {
+    color: rgba(200, 255, 220, 0.75);
+    font-size: 15px;
+    line-height: 1.9;
+    text-align: center;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+.challenge-description em {
+    color: #00ff8c;
+    font-style: italic;
+    text-shadow: 0 0 10px rgba(0, 255, 140, 0.6);
+}
+
+/* ── Terminal block ── */
+.terminal {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(0, 255, 140, 0.25);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0, 255, 140, 0.08);
+}
+
+.terminal-header {
+    background: rgba(0, 255, 140, 0.07);
+    border-bottom: 1px solid rgba(0, 255, 140, 0.15);
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.terminal-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.terminal-dot.red {
+    background: #ff5f57;
+}
+
+.terminal-dot.yellow {
+    background: #ffbd2e;
+}
+
+.terminal-dot.green {
+    background: #28c840;
+}
+
+.terminal-title {
+    color: rgba(0, 255, 140, 0.5);
+    font-size: 12px;
+    margin-left: 8px;
+    letter-spacing: 1px;
+}
+
+.terminal-body {
+    padding: 14px 18px;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.commit-line {
+    display: flex;
+    gap: 16px;
+    font-size: 13px;
+    animation: fadeSlideUp 0.4s ease both;
+}
+
+.commit-hash {
+    color: #f9c846;
+    min-width: 56px;
+}
+
+.commit-msg {
+    color: #c8ffd4;
+    flex: 1;
+}
+
+.commit-time {
+    color: rgba(150, 200, 170, 0.45);
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.terminal-cursor {
+    color: #00ff8c;
+    font-size: 14px;
+    animation: blink 1s step-end infinite;
+    margin-top: 4px;
+}
+
+/* ── Download button (page) ── */
+.download-btn {
+    background: transparent;
+    border: 1px solid rgba(0, 255, 140, 0.5);
+    color: #00ff8c;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 3px;
+    padding: 14px 36px;
+    cursor: pointer;
+    transition: background 0.3s ease, box-shadow 0.3s ease, letter-spacing 0.3s ease;
+    box-shadow: 0 0 12px rgba(0, 255, 140, 0.2);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.download-btn:hover {
+    background: rgba(0, 255, 140, 0.15);
+    box-shadow: 0 0 24px rgba(0, 255, 140, 0.5), inset 0 0 12px rgba(0, 255, 140, 0.1);
+    letter-spacing: 4px;
+}
+
+.btn-icon {
+    font-size: 16px;
+}
+
+.challenge-hint {
+    color: rgba(0, 255, 140, 0.3);
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin: 0;
+    font-style: italic;
+}
+
+/* ════════════════════════════════════════════════════════════
+   MODAL
+════════════════════════════════════════════════════════════ */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.modal-terminal {
+    width: min(540px, 92vw);
+    background: #0a110d;
+    border: 1.5px solid #00ff8c;
     border-radius: 10px;
-    border: 2px solid #00ff00; /* Green neon border */
-    box-shadow: 0px 0px 10px #00ff00;
-    max-width: 600px;
+    overflow: hidden;
+    font-family: 'Share Tech Mono', monospace;
+    animation: modalIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) both, glowPulse 3s ease-in-out infinite;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── Modal title bar ── */
+.modal-titlebar {
+    background: #0f1a14;
+    border-bottom: 1px solid rgba(0, 255, 140, 0.2);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.mdot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.mdot.red {
+    background: #ff5f57;
+}
+
+.mdot.yellow {
+    background: #ffbd2e;
+}
+
+.mdot.green {
+    background: #28c840;
+}
+
+.modal-titlebar-label {
+    color: rgba(0, 255, 140, 0.55);
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-left: 10px;
+}
+
+/* ── Modal typed command ── */
+.modal-cmd {
+    color: rgba(0, 255, 140, 0.6);
+    font-size: 12px;
+    letter-spacing: 1px;
+    padding: 12px 20px 4px;
+}
+
+.modal-caret {
+    display: inline-block;
+    animation: blink 1s step-end infinite;
+    color: #00ff8c;
+    margin-left: 1px;
+}
+
+/* ── Modal challenge header ── */
+.modal-header-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 20px 16px;
+}
+
+.modal-hex {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(20px, 4vw, 28px);
+    font-weight: 900;
+    color: #00ff8c;
+    text-shadow: 0 0 14px rgba(0, 255, 140, 0.7);
+}
+
+.modal-arrow {
+    color: #00ff8c;
+    font-size: 20px;
+    opacity: 0.7;
+}
+
+.modal-chname {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(14px, 3vw, 20px);
+    font-weight: 700;
+    color: #e8ffe0;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(200, 255, 220, 0.3);
+}
+
+/* ── Mission block ── */
+.modal-mission-block {
+    border-left: 3px solid rgba(0, 255, 140, 0.4);
+    margin: 0 20px 14px;
+    padding: 12px 16px;
+    background: rgba(0, 255, 140, 0.04);
+}
+
+.modal-mission-label {
+    color: rgba(0, 255, 140, 0.5);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.modal-mission-text {
+    color: rgba(180, 255, 210, 0.85);
+    font-size: 13.5px;
+    line-height: 1.85;
+    text-align: center;
+    margin: 0;
+}
+
+.modal-mission-text em {
+    color: #00ff8c;
+    font-style: italic;
+    text-shadow: 0 0 8px rgba(0, 255, 140, 0.5);
+}
+
+/* ── Hint block ── */
+.modal-hint-block {
+    background: rgba(0, 255, 140, 0.06);
+    border: 1px solid rgba(0, 255, 140, 0.18);
+    border-radius: 4px;
+    margin: 0 20px 14px;
+    padding: 10px 14px;
+    font-size: 13px;
     text-align: center;
 }
 
-/* Header Styling */
-.challenge-header {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #00ff00;
-    text-shadow: 0px 0px 8px #00ff00;
-    margin-bottom: 15px;
-    font-family: "Courier New", monospace;
+.modal-hint-label {
+    color: rgba(0, 255, 140, 0.55);
+    letter-spacing: 1px;
 }
 
-/* Instruction Text */
-.challenge-instruction {
-    font-size: 1.1rem;
-    color: #ffffff;
-    font-family: "Courier New", monospace;
-    opacity: 0.9;
-    line-height: 1.5;
-    max-width: 600px;
-    padding-top: 20px;
+.modal-hint-text {
+    color: rgba(180, 255, 210, 0.75);
+    font-style: italic;
 }
 
-/* Flag Text */
-.challenge-flag {
-    font-size: 1.1rem;
-    background: black;
-    padding: 10px;
-    word-break: break-word;
+/* ── wget line ── */
+.modal-wget {
+    color: rgba(0, 255, 140, 0.55);
+    font-size: 12px;
+    letter-spacing: 1px;
+    padding: 0 20px 10px;
+    text-align: center;
+}
+
+.modal-caret2 {
     display: inline-block;
-    font-family: "Courier New", monospace;
+    animation: blink 1s step-end infinite;
+    color: #00ff8c;
+    margin-left: 2px;
 }
 
-/* Button Styling */
-.ctf-button {
-    display: inline-block;
-    padding: 10px 20px;
-    margin-top: 20px;
-    background: red;
-    color: white;
-    font-size: 1rem;
+/* ── Modal download button ── */
+.modal-download-btn {
+    background: #e03a1e;
+    border: none;
+    color: #fff;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
     font-weight: bold;
-    text-transform: uppercase;
-    border-radius: 5px;
-    text-decoration: none;
-    box-shadow: 0px 0px 5px red;
-    transition: all 0.3s ease-in-out;
-    font-family: "Courier New", monospace;
+    letter-spacing: 2px;
+    padding: 15px 20px;
+    margin: 0 20px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 0 16px rgba(224, 58, 30, 0.4);
 }
 
-.ctf-button:hover {
-    background: darkred;
-    box-shadow: 0px 0px 10px red;
+.modal-download-btn:hover {
+    background: #ff4f2e;
+    box-shadow: 0 0 28px rgba(255, 79, 46, 0.6);
+}
+
+.modal-file-size {
+    font-size: 11px;
+    opacity: 0.75;
+    letter-spacing: 1px;
+}
+
+/* ── Flag format ── */
+.modal-flag-format {
+    color: rgba(0, 255, 140, 0.4);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-align: center;
+    padding: 0 20px 16px;
 }
