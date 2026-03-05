@@ -14,7 +14,7 @@ const LoginPage = () => {
     setError("");
 
     try {
-      const response = await axios.post("api/auth/login", {
+      const response = await axios.post("/api/auth/login", {
         username: teamId,
         password: password,
       });
@@ -37,7 +37,7 @@ const LoginPage = () => {
     <div className="login-page">
       <div className="login-container">
         <div className="left-section">
-          <h1>Byte Buster's Club</h1> 
+          <h1>Byte Buster's Club</h1>
           <h2>Learn CyberSecurity</h2>
           {/* <br /> <br /> <br /> <br /> <br /> <br /> <br /><br />  */}
         </div>

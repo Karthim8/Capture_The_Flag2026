@@ -1,11 +1,13 @@
+/* Challenge Wrapper */
 .challenge-wrapper {
     position: relative;
     width: 100%;
-    height: 100vh;
-    overflow:auto;
+    min-height: 100vh;
+    overflow: hidden;
     display: flex;
     justify-content: center;
-    /* align-items: center; */
+    align-items: center;
+    flex-direction: column;
     text-align: center;
 }
 
@@ -20,25 +22,137 @@
     z-index: -1;
 }
 
-/* Content Styling */
-.challenge-content {
+.source-content {
     position: relative;
-    z-index: 1;
-    color: #00ff00;
+    background: rgba(0, 0, 0, 0.85);
+    padding: 25px 30px;
+    border-radius: 12px;
+    border: 2px solid #00ff00;
+    box-shadow: 0 0 25px #00ff00;
+    max-width: 900px;
+    width: 90%;
+    margin-top: 120px;
+    margin-bottom: 50px;
     font-family: "Courier New", monospace;
-    text-shadow: 0px 0px 5px #00ff00;
-    margin-top: 80px;
+    color: #fff;
+    text-align: left;
 }
 
 .challenge-header {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: bold;
+    color: #00ff00;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 15px;
+    text-shadow: 0px 0px 8px #00ff00;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.challenge-metrics {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 25px;
+    color: #00ff00;
+    font-weight: bold;
+    background: rgba(0, 255, 0, 0.1);
+    padding: 10px;
+    border: 1px solid #00ff00;
+    border-radius: 6px;
+}
+
+.challenge-metrics .metric {
+    font-size: 1.1rem;
 }
 
 .challenge-instruction {
     font-size: 1.2rem;
-    opacity: 0.9;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: #fff;
+    text-align: justify;
+}
+
+.target-link-container {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.target-link {
+    display: inline-block;
+    padding: 15px 30px;
+    background: #00ff00;
+    color: black;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 4px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.target-link:hover {
+    background: #00cc00;
+    box-shadow: 0 0 20px #00ff00;
+    transform: scale(1.05);
+}
+
+.hints-toggle-btn {
+    background: transparent;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    padding: 8px 20px;
+    font-family: inherit;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s;
+    display: block;
+    margin: 0 auto;
+    font-weight: bold;
+}
+
+.hints-toggle-btn:hover {
+    background: #00ff00;
+    color: #000;
+}
+
+.hints-list {
+    margin-top: 20px;
+    background: black;
+    border: 1px solid #00ff00;
+    padding: 15px;
+    color: #ffaa00;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 4px;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.hints-list p {
+    margin: 10px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+.hints-list p:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.hints-list strong {
+    color: #00ff00;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

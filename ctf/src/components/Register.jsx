@@ -27,7 +27,7 @@ const Register = () => {
     console.log("Submitting Data:", formData); // Debugging: Ensure correct format
 
     try {
-      const response = await fetch("api/register", {
+      const response = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

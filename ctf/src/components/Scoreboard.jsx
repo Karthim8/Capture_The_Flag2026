@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Scoreboard.css";
-import hackerVideo from "./video/video bg ctf.mp4"; 
+import hackerVideo from "./video/video bg ctf.mp4";
 
 const Scoreboard = () => {
   const [teams, setTeams] = useState([]);
@@ -9,7 +9,7 @@ const Scoreboard = () => {
   useEffect(() => {
     const fetchTeams = async () => {
       try {
-        const response = await axios.get("api/register/teams");
+        const response = await axios.get("/api/register/teams");
         const sortedTeams = response.data.sort((a, b) => a.rank - b.rank);
         setTeams(sortedTeams);
       } catch (error) {

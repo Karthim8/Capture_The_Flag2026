@@ -1,13 +1,13 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./Navbar.css"; 
+import "./Navbar.css";
 const Navbar = () => {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
-      await axios.post("api/auth/logout");
+      await axios.post("/api/auth/logout");
       localStorage.removeItem("loggedInTeam"); // Clear local storage
       navigate("/"); // Redirect to home
       alert("Logout Success");
@@ -15,7 +15,7 @@ const Navbar = () => {
       console.error("❌ Logout failed", err);
       alert("❌ Logout failed");
     }
-    
+
   };
 
   return (
@@ -37,9 +37,9 @@ const Navbar = () => {
           <Link to="/about">About</Link>
         </li>
         <li>
-        <Link to="#" onClick={handleLogout} className="logout-link">
-    Log Out
-  </Link>
+          <Link to="#" onClick={handleLogout} className="logout-link">
+            Log Out
+          </Link>
         </li>
       </ul>
     </nav>
