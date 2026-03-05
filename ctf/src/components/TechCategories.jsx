@@ -1,17 +1,17 @@
-import React, { useState,useEffect } from "react";
-import { useNavigate } from "react-router-dom"; 
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./TechCategories.css";
-import bgVideo from "../video/video bg ctf.mp4"; 
+import bgVideo from "../video/video bg ctf.mp4";
 // import flagVerify from "./challenges/flagVerification";
 // import {getCompletionStatus} from "./compstatus";
 import flagVerify from "./challenges/flagVerification";
 import checkCompletion from "./challenges/compstatus";
 
 const challenges = [
-  { id: "0x01", points: "50 ", description: "SAMPLE FLAG", difficulty: "BEGINEER" },
+  { id: "0x01", points: "50 ", description: "LOG HUNT", difficulty: "BEGINEER" },
   { id: "0x02", points: "100 ", description: "WORLD NET", difficulty: "CHALLENGER" },
-  { id: "0x03", points: "50 ", description: "TRACK ME", difficulty: "BEGINEER" },
-  { id: "0x04", points: "50 ", description: "ENIGMA HOIST", difficulty: "BEGINEER" },
+  { id: "0x03", points: "50 ", description: "BROKEN PARADISE", difficulty: "BEGINEER" },
+  { id: "0x04", points: "50 ", description: "HIDDEN HISTORY", difficulty: "BEGINEER" },
   { id: "0x05", points: "50 ", description: "CAN YOU BEAT THIS ?", difficulty: "BEGINEER" },
   { id: "0x06", points: "200 ", description: "BLANK", difficulty: "MASTER" },
   { id: "0x07", points: "50 ", description: "HIDDEN HAVEN", difficulty: "BEGINEER" },
@@ -54,7 +54,7 @@ const TechCategories = () => {
   const [completed, setCompleted] = useState({});
   const [userFlags, setUserFlags] = useState({});
   const [messages, setMessages] = useState({});
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const loggedInTeam = localStorage.getItem("loggedInTeam");
 
@@ -89,8 +89,8 @@ const TechCategories = () => {
     } else {
       setMessages((prev) => ({ ...prev, [index]: "🚫 Incorrect flag or already submitted. Try again." }));
     }
-  }; 
-  
+  };
+
   return (
     <div className="tech-container">
       {/* Background Video */}
@@ -119,11 +119,11 @@ const TechCategories = () => {
               </button>
               <button className="tech-button">💡 Get HINT</button>
               <div className="flag-container">
-                <input 
-                  type="text" 
-                  className="flag-input" 
-                  placeholder="Enter Flag" 
-                  value={userFlags[index] || ""} 
+                <input
+                  type="text"
+                  className="flag-input"
+                  placeholder="Enter Flag"
+                  value={userFlags[index] || ""}
                   onChange={(e) => setUserFlags((prev) => ({ ...prev, [index]: e.target.value }))}
                 />
                 <button className="flag-submit" onClick={() => handleFlagSubmit(index, challenge.id)}>
