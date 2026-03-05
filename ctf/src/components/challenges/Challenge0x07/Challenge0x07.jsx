@@ -1,94 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./Challenge7.css";
-import bgVideo from "../video/video bg ctf.mp4"; // Ensure this file is in the correct location
-import useTrash from "../trash";
-import PopupModal from "../../PopupModal";
+import bgVideo from "../video/video bg ctf.mp4";
 
 const Challenge0x07 = () => {
-  // Player state
-  const [player, setPlayer] = useState({ x: 50, y: 50 });
-  const [flag, setFlag] = useState("");
-  const [fixedFlag, setFixedFlag] = useState("");
-  const [popup, setPopup] = useState({ show: false, message: "" });
-  const playerSize = 20;
-  const speed = 5;
 
-  const showPopup = (message) => setPopup({ show: true, message });
-  const closePopup = () => setPopup({ show: false, message: "" });
-
-  // Get flag data from useTrash
-  const { d: flagData } = useTrash("3");
-
-  useEffect(() => {
-    if (flagData) setFixedFlag(flagData);
-  }, [flagData]);
-
-  // Hidden area where the flag is located
-  const hiddenZone = { x: 400, y: 400, width: 50, height: 50 };
-
-  // Handle keypress for movement
-  useEffect(() => {
-    const handleKeyPress = (event) => {
-      setPlayer((prev) => {
-        let newX = prev.x;
-        let newY = prev.y;
-
-        if (event.key === "ArrowUp") newY -= speed;
-        if (event.key === "ArrowDown") newY += speed;
-        if (event.key === "ArrowLeft") newX -= speed;
-        if (event.key === "ArrowRight") newX += speed;
-
-        // Check if player reaches hidden zone
-        if (
-          newX > hiddenZone.x &&
-          newX < hiddenZone.x + hiddenZone.width &&
-          newY > hiddenZone.y &&
-          newY < hiddenZone.y + hiddenZone.height
-        ) {
-          setFlag(`🎉 Congratulations! You found the flag: ${fixedFlag}`);
-          showPopup(flagData);
-        }
-
-        return { x: newX, y: newY };
-      });
-    };
-
-    window.addEventListener("keydown", handleKeyPress);
-    return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [fixedFlag]);
+  const runChallenge = () => {
+    window.open("http://localhost:5016", "_blank");
+  };
 
   return (
     <div className="challenge-wrapper">
-      {popup.show && <PopupModal message={popup.message} onClose={closePopup} />}
+
       {/* Background Video */}
       <video autoPlay loop muted className="background-video">
         <source src={bgVideo} type="video/mp4" />
-        Your browser does not support the video tag.
       </video>
 
-      {/* Challenge Content */}
+      {/* Centered Challenge Content */}
       <div className="challenge-content">
-        <h1 className="challenge-header">0x07 {'-> Find The Secret Spot'}</h1>
-        <p className="challenge-instruction">
-          Find the hidden flag! Use arrow keys to move.
+        <h1 className="challenge-header">
+          0x07 {"->"} Multi-Stage Investigation
+        </h1>
+
+        <p className="challenge-description">
+          A web system presents a sequence of security puzzles that must be solved
+          step by step. Each stage involves analyzing different clues such as
+          encoded data, tokens, and unusual server behavior.
         </p>
 
-        {/* Game Canvas (Div-based) */}
-        <div className="game-container">
-          <div
-            className="player"
-            style={{
-              left: player.x,
-              top: player.y,
-              width: playerSize,
-              height: playerSize,
-              position: "absolute",
-              backgroundColor: "red",
-            }}
-          ></div>
-        </div>
+        <p className="challenge-hint">
+          Using Curl Method for submitting answers
+        </p>
 
-        {flag && <p className="challenge-flag">{flag}</p>}
+        <button className="run-btn" onClick={runChallenge}>
+          Run Challenge
+        </button>
       </div>
     </div>
   );
